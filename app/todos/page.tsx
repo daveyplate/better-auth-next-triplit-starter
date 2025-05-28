@@ -2,7 +2,7 @@
 
 import { useQuery } from "@triplit/react"
 import { Loader2 } from "lucide-react"
-import { type FormEvent, useEffect, useState } from "react"
+import { type FormEvent, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,20 +10,10 @@ import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 
 function useTodos() {
-    const [remoteFulfilled, setRemoteFulfilled] = useState(false)
     const todosQuery = triplit.query("todos").Order("createdAt", "DESC")
-    const {
-        results: todos,
-        error,
-        fetching,
-        fetchingLocal,
-        fetchingRemote
-    } = useQuery(triplit, todosQuery, { onRemoteFulfilled: () => setRemoteFulfilled(true) })
+    const { results: todos, error, fetching } = useQuery(triplit, todosQuery)
 
-    useEffect(() => {
-        console.log({ todos, error, fetching, fetchingLocal, fetchingRemote, remoteFulfilled })
-    }, [todos, error, fetching, fetchingLocal, fetchingRemote, remoteFulfilled])
-    return { todos, error, fetching, remoteFulfilled }
+    return { todos, error, fetching }
 }
 
 export default function App() {

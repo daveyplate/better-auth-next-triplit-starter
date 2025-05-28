@@ -177,7 +177,7 @@ export const authSchema = S.Collections({
             name: S.String(),
             slug: S.String(),
             logo: S.Optional(S.String()),
-            metadata: S.Optional(S.String()),
+            metadata: S.Optional(S.Json()),
             createdAt: S.Date({ default: S.Default.now() })
         }),
         relationships: {
@@ -191,7 +191,13 @@ export const authSchema = S.Collections({
                 where: [["organizationId", "=", "$id"]]
             })
         },
-        permissions: {}
+        permissions: {
+            authenticated: {
+                read: {
+                    filter: [["members.userId", "=", "$token.sub"]]
+                }
+            }
+        }
     },
     members: {
         schema: S.Schema({
@@ -207,7 +213,13 @@ export const authSchema = S.Collections({
             organization: S.RelationById("organizations", "$organizationId"),
             team: S.RelationById("teams", "$teamId")
         },
-        permissions: {}
+        permissions: {
+            authenticated: {
+                read: {
+                    filter: [["organization.members.userId", "=", "$token.sub"]]
+                }
+            }
+        }
     },
     invitations: {
         schema: S.Schema({
@@ -226,7 +238,13 @@ export const authSchema = S.Collections({
             organization: S.RelationById("organizations", "$organizationId"),
             team: S.RelationById("teams", "$teamId")
         },
-        permissions: {}
+        permissions: {
+            authenticated: {
+                read: {
+                    filter: [["organization.members.userId", "=", "$token.sub"]]
+                }
+            }
+        }
     },
     teams: {
         schema: S.Schema({
@@ -245,6 +263,12 @@ export const authSchema = S.Collections({
                 where: [["teamId", "=", "$id"]]
             })
         },
-        permissions: {}
+        permissions: {
+            authenticated: {
+                read: {
+                    filter: [["organization.members.userId", "=", "$token.sub"]]
+                }
+            }
+        }
     }
 })
