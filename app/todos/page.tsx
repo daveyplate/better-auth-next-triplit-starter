@@ -35,7 +35,7 @@ export default function TodosPage() {
         setText("")
     }
 
-    if (!payload?.sub) return <Loader2 className="mx-auto my-auto animate-spin" />
+    if (fetching) return <Loader2 className="mx-auto my-auto animate-spin" />
 
     return (
         <div className="container mx-auto flex flex-col gap-4 p-4">
@@ -51,8 +51,6 @@ export default function TodosPage() {
                     Add Todo
                 </Button>
             </form>
-
-            {fetching && <Loader2 className="animate-spin" />}
 
             <div>
                 {todos?.map((todo) => (
