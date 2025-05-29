@@ -15,10 +15,27 @@ export const schema = S.Collections({
     todos: {
         schema: S.Schema({
             id: S.Id(),
+            userId: S.String(),
             text: S.String(),
             completed: S.Boolean({ default: false }),
             createdAt: S.Date({ default: S.Default.now() }),
             updatedAt: S.Date({ default: S.Default.now() })
-        })
+        }),
+        permissions: {
+            authenticated: {
+                read: {
+                    filter: [isUid]
+                },
+                insert: {
+                    filter: [isUid]
+                },
+                update: {
+                    filter: [isUid]
+                },
+                postUpdate: {
+                    filter: [isUid]
+                }
+            }
+        }
     }
 })

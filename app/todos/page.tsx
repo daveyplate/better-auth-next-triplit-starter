@@ -1,8 +1,8 @@
 "use client"
 
+import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { Loader2 } from "lucide-react"
 import { type FormEvent, useState } from "react"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
@@ -22,15 +22,20 @@ function useTodos() {
     return { todos, error, fetching }
 }
 
-export default function App() {
+export default function TodosPage() {
+    useAuthenticate()
     const [text, setText] = useState("")
     const { todos, fetching } = useTodos()
+    const { payload } = useTriplitToken()
 
     const handleSubmit = async (e: FormEvent) => {
+        if (!payload?.sub) return
         e.preventDefault()
-        await triplit.insert("todos", { text })
+        await triplit.insert("todos", { userId: payload?.sub, text })
         setText("")
     }
+
+    if (!payload?.sub) return <Loader2 className="mx-auto my-auto animate-spin" />
 
     return (
         <div className="container mx-auto flex flex-col gap-4 p-4">
