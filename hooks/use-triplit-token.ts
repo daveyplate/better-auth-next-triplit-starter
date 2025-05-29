@@ -1,9 +1,17 @@
+import type { ConnectionOptionsChange } from "@triplit/client"
 import { useConnectionStatus } from "@triplit/react"
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { triplit } from "@/triplit/client"
 
 export function useTriplitToken() {
     const connectionStatus = useConnectionStatus(triplit)
+    const [connectionOptions, setConnectionOptions] = useState<ConnectionOptionsChange>()
+
+    useEffect(() => {
+        return triplit.onConnectionOptionsChange((options) =>
+            setTimeout(() => setConnectionOptions(options))
+        )
+    }, [])
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: update when connection status changes
     const payload = useMemo(
@@ -15,7 +23,7 @@ export function useTriplitToken() {
                       sub?: string
                   })
                 : undefined,
-        [connectionStatus]
+        [connectionStatus, connectionOptions]
     )
 
     return { token: payload && triplit.token, payload }

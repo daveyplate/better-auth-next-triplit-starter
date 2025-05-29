@@ -1,17 +1,23 @@
 "use client"
 
-import { useQuery } from "@triplit/react"
 import { Loader2 } from "lucide-react"
 import { type FormEvent, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useConditionalQuery } from "@/hooks/use-conditional-query"
+import { useTriplitToken } from "@/hooks/use-triplit-token"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 
 function useTodos() {
+    const { payload } = useTriplitToken()
     const todosQuery = triplit.query("todos").Order("createdAt", "DESC")
-    const { results: todos, error, fetching } = useQuery(triplit, todosQuery)
+    const {
+        results: todos,
+        error,
+        fetching
+    } = useConditionalQuery(triplit, payload?.sub && todosQuery)
 
     return { todos, error, fetching }
 }

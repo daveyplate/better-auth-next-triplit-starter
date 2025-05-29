@@ -39,6 +39,7 @@ export function Providers({ children }: { children: ReactNode }) {
             <AuthUIProviderTanstack
                 authClient={authClient}
                 hooks={hooks}
+                multiSession
                 navigate={router.push}
                 replace={router.replace}
                 onSessionChange={() => {

@@ -8,7 +8,7 @@ import type {
 } from "@triplit/client"
 import type { WorkerClient } from "@triplit/client/worker-client"
 import { createStateSubscription } from "@triplit/react"
-import { useCallback, useMemo, useState, useSyncExternalStore } from "react"
+import { useCallback, useMemo, useSyncExternalStore } from "react"
 
 export function useConditionalQuery<M extends Models<M>, Q extends SchemaQuery<M>>(
     client: TriplitClient<M> | WorkerClient<M>,
@@ -17,7 +17,6 @@ export function useConditionalQuery<M extends Models<M>, Q extends SchemaQuery<M
 ) {
     const stringifiedQuery = !options?.disabled && query && JSON.stringify(query)
     const localOnly = !!options?.localOnly
-    const [remoteFulfilled, setRemoteFulfilled] = useState(false)
 
     const defaultValue: SubscriptionSignalPayload<M, Q> = {
         results: undefined,
@@ -32,16 +31,14 @@ export function useConditionalQuery<M extends Models<M>, Q extends SchemaQuery<M
         () =>
             stringifiedQuery
                 ? createStateSubscription(client, query, {
-                      ...options,
-                      onRemoteFulfilled: () => setRemoteFulfilled(true)
+                      ...options
                   })
                 : [() => () => {}, () => defaultValue],
         [stringifiedQuery, localOnly]
     )
 
     const getServerSnapshot = useCallback(() => snapshot(), [snapshot])
-    const { fetching, ...rest } = useSyncExternalStore(subscribe, snapshot, getServerSnapshot)
-    return { fetching: fetching && !remoteFulfilled, ...rest }
+    return useSyncExternalStore(subscribe, snapshot, getServerSnapshot)
 }
 
 type useConditionalQueryOnePayload<M extends Models<M>, Q extends SchemaQuery<M>> = Omit<

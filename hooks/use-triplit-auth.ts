@@ -1,17 +1,14 @@
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { toast } from "sonner"
-
-import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 import { useSession } from "./auth-hooks"
 import { useTriplitToken } from "./use-triplit-token"
 
 export function useTriplitAuth() {
+    const router = useRouter()
     const { payload } = useTriplitToken()
     const { data: sessionData, isPending: sessionPending, refetch: refetchSession } = useSession()
-
-    const router = useRouter()
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: only run on session change
     useEffect(() => {
@@ -50,17 +47,13 @@ export function useTriplitAuth() {
             } catch (error) {
                 console.error(error)
                 toast.error((error as Error).message)
-                authClient.signOut().finally(async () => {
-                    await refetchSession()
-                    router.refresh()
-                })
             }
         }
 
         const unlisten = triplit.onSessionError((error) => {
             console.error(error)
             toast.error(error)
-            authClient.signOut().finally(() => refetchSession())
+            router.push("/auth/sign-out")
         })
 
         startSession()
