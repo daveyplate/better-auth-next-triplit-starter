@@ -6,6 +6,8 @@ First, create a Triplit Database or run triplit dev then configure your environm
 
 You can generate a `BETTER_AUTH_SECRET` [here](https://www.better-auth.com/docs/installation#set-environment-variables).
 
+If using Triplit Cloud, you must set `External JWT secret` to your `BETTER_AUTH_SECRET` in the Triplit dashboard.
+
 ```bash
 BETTER_AUTH_SECRET=""
 TRIPLIT_DB_URL=""
