@@ -34,6 +34,9 @@ export const schema = S.Collections({
                 },
                 postUpdate: {
                     filter: [isUid]
+                },
+                delete: {
+                    filter: [isUid]
                 }
             }
         }
