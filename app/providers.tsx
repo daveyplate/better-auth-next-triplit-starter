@@ -40,6 +40,7 @@ export function Providers({ children }: { children: ReactNode }) {
                 authClient={authClient}
                 hooks={hooks}
                 multiSession
+                redirectTo="/todos"
                 navigate={router.push}
                 replace={router.replace}
                 onSessionChange={() => {
