@@ -2,10 +2,9 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: "Better Auth Next.js Starter",
+        name: "Better Auth Triplit Next.js Starter",
         short_name: "Better Auth Starter",
-        description:
-            "Better Auth Next.js Starter with Postgres, Drizzle, shadcn/ui and Tanstack Query",
+        description: "Better Auth Next.js Starter with Triplit, shadcn/ui and Tanstack Query",
         start_url: "/",
         display: "standalone",
         background_color: "#fff",
