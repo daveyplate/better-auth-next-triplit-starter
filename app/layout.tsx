@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: "Better Auth Triplit Next.js Starter",
-    description: "Better Auth Next.js Starter with Triplit, shadcn/ui and Tanstack Query"
+    description: "Better Auth Next.js Starter with Triplit & shadcn/ui"
 }
 
 export const viewport: Viewport = {

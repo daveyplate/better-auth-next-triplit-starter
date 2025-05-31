@@ -29,10 +29,6 @@ NEXT_PUBLIC_TRIPLIT_ANON_TOKEN=$TRIPLIT_ANON_TOKEN
 
 [Better Auth UI](https://better-auth-ui.com)
 
-[Better Auth TanStack](https://github.com/daveyplate/better-auth-tanstack)
-
-[TanStack Query](https://tanstack.com/query)
-
 [Triplit](https://triplit.dev)
 
 [shadcn/ui](https://ui.shadcn.com)
