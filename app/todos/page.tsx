@@ -7,6 +7,7 @@ import { type FormEvent, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
+import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 
@@ -18,7 +19,9 @@ function useTodos() {
 }
 
 export default function TodosPage() {
-    const { data: sessionData } = useAuthenticate()
+    useAuthenticate()
+
+    const { data: sessionData } = authClient.useSession()
     const [text, setText] = useState("")
     const { todos, fetching } = useTodos()
 
