@@ -1,13 +1,14 @@
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { toast } from "sonner"
+
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
-import { useTriplitToken } from "./use-triplit-token"
+import { useTriplitTokenOld } from "./use-triplit-token-old"
 
-export function useTriplitAuth() {
+export function useTriplitAuthOld() {
     const router = useRouter()
-    const { payload } = useTriplitToken()
+    const { payload } = useTriplitTokenOld()
     const {
         data: sessionData,
         isPending: sessionPending,

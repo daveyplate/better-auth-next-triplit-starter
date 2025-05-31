@@ -3,35 +3,29 @@
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { Loader2 } from "lucide-react"
 import { type FormEvent, useState } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
-import { useTriplitToken } from "@/hooks/use-triplit-token"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 
 function useTodos() {
-    const { payload } = useTriplitToken()
     const todosQuery = triplit.query("todos").Order("createdAt", "DESC")
-    const {
-        results: todos,
-        error,
-        fetching
-    } = useConditionalQuery(triplit, payload?.sub && todosQuery)
+    const { results: todos, error, fetching } = useConditionalQuery(triplit, todosQuery)
 
     return { todos, error, fetching }
 }
 
 export default function TodosPage() {
-    useAuthenticate()
+    const { data: sessionData } = useAuthenticate()
     const [text, setText] = useState("")
     const { todos, fetching } = useTodos()
-    const { payload } = useTriplitToken()
 
     const handleSubmit = async (e: FormEvent) => {
-        if (!payload?.sub) return
+        if (!sessionData?.user?.id) return
         e.preventDefault()
-        await triplit.insert("todos", { userId: payload?.sub, text })
+        await triplit.insert("todos", { userId: sessionData.user.id, text })
         setText("")
     }
 

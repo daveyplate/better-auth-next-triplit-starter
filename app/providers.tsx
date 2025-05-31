@@ -1,27 +1,16 @@
 "use client"
 
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
-import { useTriplitHooks } from "@daveyplate/better-auth-ui/triplit"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import type { ReactNode } from "react"
 import { Toaster } from "sonner"
-import { useTriplitAuth } from "@/hooks/use-triplit-auth"
+
 import { authClient } from "@/lib/auth-client"
-import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
     const router = useRouter()
-    const { data: sessionData, isPending } = authClient.useSession()
-
-    useTriplitAuth()
-    const { hooks } = useTriplitHooks({
-        triplit,
-        sessionData,
-        isPending,
-        usePlural: true
-    })
 
     return (
         <ThemeProvider
@@ -36,7 +25,7 @@ export function Providers({ children }: { children: ReactNode }) {
         >
             <AuthUIProvider
                 authClient={authClient}
-                hooks={hooks}
+                // hooks={hooks}
                 multiSession
                 redirectTo="/todos"
                 navigate={router.push}
