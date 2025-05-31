@@ -1,14 +1,18 @@
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { toast } from "sonner"
+import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
-import { useSession } from "./auth-hooks"
 import { useTriplitToken } from "./use-triplit-token"
 
 export function useTriplitAuth() {
     const router = useRouter()
     const { payload } = useTriplitToken()
-    const { data: sessionData, isPending: sessionPending, refetch: refetchSession } = useSession()
+    const {
+        data: sessionData,
+        isPending: sessionPending,
+        refetch: refetchSession
+    } = authClient.useSession()
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: only run on session change
     useEffect(() => {

@@ -1,21 +1,19 @@
 "use client"
 
-import { AuthUIProviderTanstack } from "@daveyplate/better-auth-ui/tanstack"
+import { AuthUIProvider } from "@daveyplate/better-auth-ui"
 import { useTriplitHooks } from "@daveyplate/better-auth-ui/triplit"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import type { ReactNode } from "react"
 import { Toaster } from "sonner"
-
-import { useSession } from "@/hooks/auth-hooks"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
     const router = useRouter()
-    const { data: sessionData, isPending } = useSession()
+    const { data: sessionData, isPending } = authClient.useSession()
 
     useTriplitAuth()
     const { hooks } = useTriplitHooks({
@@ -36,7 +34,7 @@ export function Providers({ children }: { children: ReactNode }) {
                 dark: "oklch(0.145 0 0)"
             }}
         >
-            <AuthUIProviderTanstack
+            <AuthUIProvider
                 authClient={authClient}
                 hooks={hooks}
                 multiSession
@@ -51,7 +49,7 @@ export function Providers({ children }: { children: ReactNode }) {
                 {children}
 
                 <Toaster />
-            </AuthUIProviderTanstack>
+            </AuthUIProvider>
         </ThemeProvider>
     )
 }
