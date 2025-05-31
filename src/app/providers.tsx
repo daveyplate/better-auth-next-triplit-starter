@@ -7,10 +7,13 @@ import { ThemeProvider } from "next-themes"
 import type { ReactNode } from "react"
 import { Toaster } from "sonner"
 
+import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { authClient } from "@/lib/auth-client"
+import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
     const router = useRouter()
+    useTriplitAuth({ triplit, authClient })
 
     return (
         <ThemeProvider
@@ -22,7 +25,6 @@ export function Providers({ children }: { children: ReactNode }) {
             <AuthUIProvider
                 authClient={authClient}
                 multiSession
-                redirectTo="/todos"
                 navigate={router.push}
                 replace={router.replace}
                 onSessionChange={() => {

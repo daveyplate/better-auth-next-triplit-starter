@@ -30,6 +30,10 @@ export function Header() {
                     <Link href="/todos" className="font-medium text-sm hover:underline">
                         Todos
                     </Link>
+                    |
+                    <Link href="/test" className="font-medium text-sm hover:underline">
+                        Test
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-2">
