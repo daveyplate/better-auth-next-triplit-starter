@@ -6,7 +6,7 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["**", "!components/ui/**"]
+        "includes": ["**", "!src/components/ui/**"]
     },
     "formatter": {
         "indentStyle": "space",
