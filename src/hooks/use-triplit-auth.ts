@@ -12,7 +12,12 @@ interface UseTriplitAuthOptions {
 }
 
 export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
-    const { session, cacheSession, isPending: cachedSessionPending } = useCachedSession()
+    const {
+        data: cachedSessionData,
+        cacheSessionData,
+        isPending: cachedSessionPending
+    } = useCachedSession()
+
     const {
         data: sessionData,
         isPending: sessionPending,
@@ -26,29 +31,32 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
         if (!sessionData) {
             if (sessionError) return
 
-            cacheSession(null)
+            cacheSessionData(null)
             return
         }
 
-        // Only cache the session if we don't have one or it is the same user ID
-        if (!session || sessionData.session.userId === session.userId) {
-            cacheSession(sessionData.session)
+        // Only cache the current session if we don't have one or it is the same user ID
+        if (!cachedSessionData || sessionData.session.userId === cachedSessionData.user.id) {
+            cacheSessionData(sessionData)
+        } else {
+            // AuthClient - SetActiveUser
         }
-    }, [session, sessionPending, sessionData, sessionError])
+    }, [cachedSessionData, sessionPending, sessionData, sessionError])
 
     useEffect(() => {
         if (cachedSessionPending) return
 
         const startSession = async () => {
-            if (!session) {
-                console.log("Signed out, Clear the cache")
+            if (!cachedSessionData) {
                 await triplit.endSession()
                 await triplit.clear()
             }
 
-            await triplit.startSession(session?.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN)
+            await triplit.startSession(
+                cachedSessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
+            )
         }
 
         startSession()
-    }, [cachedSessionPending, session, triplit])
+    }, [cachedSessionPending, cachedSessionData, triplit])
 }

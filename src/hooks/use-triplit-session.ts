@@ -14,32 +14,22 @@ interface UseTriplitAuthOptions {
 }
 
 export function useTriplitSession({ triplit, authClient }: UseTriplitAuthOptions) {
-    const { session: cachedSession } = useCachedSession()
+    const { data: cachedSessionData } = useCachedSession()
     const { data: sessionData, isPending: sessionPending } = authClient.useSession()
 
-    const {
-        result: user,
-        fetching,
-        error
-    } = useConditionalQueryOne(triplit, triplit.token && triplit.query("users"))
-
-    const session = cachedSession || sessionData?.session
-    const isPending = (session && fetching) || (!session && sessionPending)
+    const { result: user } = useConditionalQueryOne(
+        triplit,
+        triplit.token && triplit.query("users")
+    )
 
     const data = useMemo(() => {
-        if (!session || !user) return null
-        if (session.userId !== user.id) return null
+        const data = cachedSessionData || sessionData
+        if (data && data.session.userId === user?.id) {
+            data.user = user
+        }
 
-        return { session, user }
-    }, [session, user])
+        return data
+    }, [cachedSessionData, sessionData, user])
 
-    if (error) {
-        return { data: null, isPending: false, error: error as Error }
-    }
-
-    if (!session || !user) {
-        return { data: null, isPending, error: null }
-    }
-
-    return { data, isPending: false, error: null }
+    return { data, isPending: !data && sessionPending, error: null }
 }

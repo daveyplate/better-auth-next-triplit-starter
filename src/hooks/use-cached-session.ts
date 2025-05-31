@@ -1,29 +1,35 @@
 "use client"
 
-import type { Session } from "better-auth"
+import type { Session, User } from "better-auth"
 import { useCallback, useEffect, useState } from "react"
 import superjson from "superjson"
+import { useIsHydrated } from "./use-hydrated"
 
-const getCachedSession = () => {
+type SessionData = {
+    session: Session
+    user: User
+}
+
+const getCachedSessionData = () => {
     if (typeof window === "undefined") return null
 
     const activeSession = localStorage.getItem("triplit-session")
 
     if (activeSession) {
-        const session = superjson.parse(activeSession) as Session
+        const sessionData = superjson.parse(activeSession) as SessionData
 
-        if (session.expiresAt.getTime() < Date.now()) {
+        if (sessionData.session.expiresAt.getTime() < Date.now()) {
             localStorage.removeItem("triplit-session")
             return null
         }
 
-        return session
+        return sessionData
     }
 
     return null
 }
 
-const setCachedSession = (session: Session | null) => {
+const setCachedSessionData = (session: SessionData | null) => {
     if (typeof window === "undefined") return
 
     if (!session) {
@@ -34,18 +40,19 @@ const setCachedSession = (session: Session | null) => {
 }
 
 export function useCachedSession() {
-    const [session, setSession] = useState<Session | null>(getCachedSession())
-    const [isPending, setIsPending] = useState(!session)
+    const isHydrated = useIsHydrated()
+    const [data, setData] = useState<SessionData | null>(isHydrated ? getCachedSessionData() : null)
+    const [isPending, setIsPending] = useState(!data)
 
     useEffect(() => {
-        setSession(getCachedSession())
+        setData(getCachedSessionData())
         setIsPending(false)
     }, [])
 
-    const cacheSession = useCallback((session: Session | null) => {
-        setSession(session)
-        setCachedSession(session)
+    const cacheSessionData = useCallback((sessionData: SessionData | null) => {
+        setData(sessionData)
+        setCachedSessionData(sessionData)
     }, [])
 
-    return { session, cacheSession, isPending }
+    return { data, cacheSessionData, isPending }
 }
