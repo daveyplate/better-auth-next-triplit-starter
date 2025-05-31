@@ -18,14 +18,9 @@ export function Providers({ children }: { children: ReactNode }) {
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-            themeColor={{
-                light: "oklch(1 0 0)",
-                dark: "oklch(0.145 0 0)"
-            }}
         >
             <AuthUIProvider
                 authClient={authClient}
-                // hooks={hooks}
                 multiSession
                 redirectTo="/todos"
                 navigate={router.push}
