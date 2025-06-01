@@ -1,7 +1,6 @@
 "use client"
 
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
-import { Loader2 } from "lucide-react"
 import { type FormEvent, useState } from "react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -11,6 +10,7 @@ import { useTriplitToken } from "@/hooks/use-triplit-token"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
+import TodoSkeleton from "./todo-skeleton"
 
 function useTodos() {
 	const { data: sessionData } = authClient.useSession()
@@ -66,15 +66,23 @@ export default function TodosPage() {
 				</Button>
 			</form>
 
-			{fetching && <Loader2 className="mx-auto my-auto animate-spin" />}
+			{fetching && !todos && (
+				<div>
+					{[...Array(4)].map((_, index) => (
+						<TodoSkeleton key={index} />
+					))}
+				</div>
+			)}
 
-			{todos?.length === 0 && <p>No todos</p>}
+			{!fetching && todos?.length === 0 && <p>No todos</p>}
 
-			<div>
-				{todos?.map((todo) => (
-					<Todo key={todo.id} todo={todo} />
-				))}
-			</div>
+			{!fetching && (
+				<div>
+					{todos?.map((todo) => (
+						<Todo key={todo.id} todo={todo} />
+					))}
+				</div>
+			)}
 		</main>
 	)
 }

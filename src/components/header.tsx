@@ -2,10 +2,11 @@ import { GitHubIcon, UserButton } from "@daveyplate/better-auth-ui"
 import Link from "next/link"
 import { ModeToggle } from "./mode-toggle"
 import { Button } from "./ui/button"
+import { Separator } from "./ui/separator"
 
 export function Header() {
 	return (
-		<header className="sticky top-0 z-50 flex h-12 justify-between border-b bg-background/60 px-safe-or-4 backdrop-blur md:px-safe-or-6">
+		<header className="sticky top-0 z-50 flex h-12 justify-between border-b bg-background/60 px-safe-or-4 backdrop-blur md:h-14 md:px-safe-or-6">
 			<div className="flex items-center gap-4">
 				<Link href="/" className="flex items-center gap-2">
 					<svg
@@ -26,9 +27,13 @@ export function Header() {
 
 					<span className="hidden md:block">BETTER-AUTH. STARTER</span>
 				</Link>
+
+				<Separator orientation="vertical" />
+
 				<Link href="/todos" className="font-medium text-sm hover:underline">
 					Todos
 				</Link>
+
 				<Link href="/test" className="font-medium text-sm hover:underline">
 					Test
 				</Link>
