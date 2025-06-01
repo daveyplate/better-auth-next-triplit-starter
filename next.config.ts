@@ -12,9 +12,9 @@ const withSerwist = withSerwistInit({
         { url: "/", revision },
         { url: "/todos", revision },
         { url: "/test", revision },
-        { url: "/auth/settings", revision },
         { url: "/auth/sign-in", revision },
-        { url: "/auth/sign-up", revision }
+        { url: "/auth/sign-up", revision },
+        { url: "/auth/settings", revision }
     ]
 })
 

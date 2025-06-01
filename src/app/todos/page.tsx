@@ -7,22 +7,20 @@ import { type FormEvent, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
+import { useTriplitToken } from "@/hooks/use-triplit-token"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 
 function useTodos() {
     const { data: sessionData } = authClient.useSession()
+    const { token } = useTriplitToken()
     const todosQuery = triplit
         .query("todos")
         .Order("createdAt", "DESC")
         .Where("userId", "=", sessionData?.user.id)
 
-    const {
-        results: todos,
-        error,
-        fetching
-    } = useConditionalQuery(triplit, triplit.token && todosQuery)
+    const { results: todos, error, fetching } = useConditionalQuery(triplit, token && todosQuery)
 
     return { todos, error, fetching }
 }
