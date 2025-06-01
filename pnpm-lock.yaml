@@ -10,13 +10,16 @@ importers:
     dependencies:
       '@daveyplate/better-auth-triplit':
         specifier: ^0.1.2
-        version: 0.1.2(@triplit/client@1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.9-beta.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 0.1.2(@triplit/client@1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.9-beta.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
         specifier: ^1.7.4
-        version: 1.7.4(4a805e9e3fa90e774a686ca66418024f)
+        version: 1.7.4(a9ce01c6092eb6aa7d138a774db40edb)
       '@nanostores/persistent':
         specifier: ^1.0.0
         version: 1.0.0(nanostores@1.0.1)
+      '@nanostores/react':
+        specifier: ^1.0.0
+        version: 1.0.0(nanostores@1.0.1)(react@19.1.0)
       '@radix-ui/react-checkbox':
         specifier: ^1.3.2
         version: 1.3.2(@types/react-dom@19.1.5(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -33,8 +36,8 @@ importers:
         specifier: ^1.0.40
         version: 1.0.40(better-sqlite3@11.10.0)(react@19.1.0)(typescript@5.8.3)
       better-auth:
-        specifier: 1.2.9-beta.6
-        version: 1.2.9-beta.6
+        specifier: 1.2.9-beta.7
+        version: 1.2.9-beta.7
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -912,6 +915,13 @@ packages:
     engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
       nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
+
+  '@nanostores/react@1.0.0':
+    resolution: {integrity: sha512-eDduyNy+lbQJMg6XxZ/YssQqF6b4OXMFEZMYKPJCCmBevp1lg0g+4ZRi94qGHirMtsNfAWKNwsjOhC+q1gvC+A==}
+    engines: {node: ^20.0.0 || >=22.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
+      react: '>=18.0.0'
 
   '@neondatabase/serverless@0.10.4':
     resolution: {integrity: sha512-2nZuh3VUO9voBauuh+IGYRhGU/MskWHt1IuZvHcJw6GLjDgtqj/KViKo7SIrLdGLdot7vFbiRRw+BgEy3wT9HA==}
@@ -2013,8 +2023,8 @@ packages:
   better-auth@1.2.8:
     resolution: {integrity: sha512-y8ry7ZW3/3ZIr82Eo1zUDtMzdoQlFnwNuZ0+b0RxoNZgqmvgTIc/0tCDC7NDJerqSu4UCzer0dvYxBsv3WMIGg==}
 
-  better-auth@1.2.9-beta.6:
-    resolution: {integrity: sha512-dFl7/YpaiIN1sJlRS2IPJkHZ7VIdEJTIerVBCah4H9f0W0VXvS5WIstNusDYHXD02sniGruiaaGgfVnUPe/vLw==}
+  better-auth@1.2.9-beta.7:
+    resolution: {integrity: sha512-lwLgweolQT9RNOb4N/1aYn2zcOpEwQoNHihhBT3XDqzliqpjDi4bbmwlYvozkV1j5wbLd2urihdmOZOmjwqxcg==}
 
   better-call@1.0.9:
     resolution: {integrity: sha512-Qfm0gjk0XQz0oI7qvTK1hbqTsBY4xV2hsHAxF8LZfUYl3RaECCIifXuVqtPpZJWvlCCMlQSvkvhhyuApGUba6g==}
@@ -3584,26 +3594,26 @@ snapshots:
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
-  '@daveyplate/better-auth-tanstack@1.3.6(@tanstack/query-core@5.79.0)(@tanstack/react-query@5.79.0(react@19.1.0))(better-auth@1.2.9-beta.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-tanstack@1.3.6(@tanstack/query-core@5.79.0)(@tanstack/react-query@5.79.0(react@19.1.0))(better-auth@1.2.9-beta.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tanstack/query-core': 5.79.0
       '@tanstack/react-query': 5.79.0(react@19.1.0)
-      better-auth: 1.2.9-beta.6
+      better-auth: 1.2.9-beta.7
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-triplit@0.1.2(@triplit/client@1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.9-beta.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-triplit@0.1.2(@triplit/client@1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.9-beta.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@triplit/client': 1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3)
-      better-auth: 1.2.9-beta.6
+      better-auth: 1.2.9-beta.7
       jose: 6.0.11
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.7.4(4a805e9e3fa90e774a686ca66418024f)':
+  '@daveyplate/better-auth-ui@1.7.4(a9ce01c6092eb6aa7d138a774db40edb)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
-      '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.79.0)(@tanstack/react-query@5.79.0(react@19.1.0))(better-auth@1.2.9-beta.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.79.0)(@tanstack/react-query@5.79.0(react@19.1.0))(better-auth@1.2.9-beta.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hcaptcha/react-hcaptcha': 1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers': 5.0.1(react-hook-form@7.56.0(react@19.1.0))
       '@instantdb/react': 0.18.3(react@19.1.0)
@@ -3626,7 +3636,7 @@ snapshots:
       '@triplit/client': 1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3)
       '@triplit/react': 1.0.40(better-sqlite3@11.10.0)(react@19.1.0)(typescript@5.8.3)
       '@wojtekmaj/react-recaptcha-v3': 0.1.4(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      better-auth: 1.2.9-beta.6
+      better-auth: 1.2.9-beta.7
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       input-otp: 1.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3954,6 +3964,11 @@ snapshots:
   '@nanostores/persistent@1.0.0(nanostores@1.0.1)':
     dependencies:
       nanostores: 1.0.1
+
+  '@nanostores/react@1.0.0(nanostores@1.0.1)(react@19.1.0)':
+    dependencies:
+      nanostores: 1.0.1
+      react: 19.1.0
 
   '@neondatabase/serverless@0.10.4':
     dependencies:
@@ -4998,7 +5013,7 @@ snapshots:
       nanostores: 0.11.4
       zod: 3.25.42
 
-  better-auth@1.2.9-beta.6:
+  better-auth@1.2.9-beta.7:
     dependencies:
       '@better-auth/utils': 0.2.5
       '@better-fetch/fetch': 1.1.18

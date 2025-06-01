@@ -13,7 +13,11 @@ import Todo from "./todo"
 
 function useTodos() {
     const todosQuery = triplit.query("todos").Order("createdAt", "DESC")
-    const { results: todos, error, fetching } = useConditionalQuery(triplit, todosQuery)
+    const {
+        results: todos,
+        error,
+        fetching
+    } = useConditionalQuery(triplit, triplit.token && todosQuery)
 
     return { todos, error, fetching }
 }
@@ -49,6 +53,7 @@ export default function TodosPage() {
                 </Button>
             </form>
 
+            {todos?.length === 0 && <p>No todos</p>}
             <div>
                 {todos?.map((todo) => (
                     <Todo key={todo.id} todo={todo} />

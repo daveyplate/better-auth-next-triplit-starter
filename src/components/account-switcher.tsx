@@ -10,13 +10,11 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { useDeviceSessions } from "@/hooks/use-device-sessions"
-import { useTriplitSession } from "@/hooks/use-triplit-session"
 import { authClient } from "@/lib/auth-client"
-import { triplit } from "@/triplit/client"
 
 export function AccountSwitcher() {
     const { data: deviceSessions } = useDeviceSessions()
-    const { data: session } = useTriplitSession({ triplit, authClient })
+    const { data: session } = authClient.useSession()
 
     const setActive = (sessionId: string) => {
         // Empty function that will be called when a session is clicked

@@ -6,13 +6,15 @@ import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import type { ReactNode } from "react"
 import { Toaster } from "sonner"
-
+import { setActiveSession } from "@/better-auth-persistent/set-active-session"
+import { useDeviceSessions } from "@/hooks/use-device-sessions"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
     const router = useRouter()
+
     useTriplitAuth({ triplit, authClient })
 
     return (
@@ -25,6 +27,12 @@ export function Providers({ children }: { children: ReactNode }) {
             <AuthUIProvider
                 authClient={authClient}
                 multiSession
+                hooks={{
+                    useListDeviceSessions: useDeviceSessions
+                }}
+                mutators={{
+                    setActiveSession: setActiveSession
+                }}
                 navigate={router.push}
                 replace={router.replace}
                 onSessionChange={() => {
