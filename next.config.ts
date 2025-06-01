@@ -15,8 +15,7 @@ const withSerwist = withSerwistInit({
         { url: "/auth/sign-in", revision },
         { url: "/auth/sign-up", revision },
         { url: "/auth/settings", revision }
-    ],
-    exclude: ["/api/auth/*"]
+    ]
 })
 
 const nextConfig: NextConfig = {
