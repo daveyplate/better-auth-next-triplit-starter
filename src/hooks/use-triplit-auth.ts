@@ -23,7 +23,9 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
     useEffect(() => {
         const startSession = async () => {
             if (sessionPending) return
-            if (triplit.token === sessionData?.session.token) return
+
+            const token = sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
+            if (triplit.token === token) return
 
             // Temporary hack to fix loaders during account switching
             if (triplit.token) {
@@ -37,9 +39,7 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
             }
 
             try {
-                await triplit.startSession(
-                    sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
-                )
+                await triplit.startSession(token)
             } catch (error) {
                 console.error(error)
             }
