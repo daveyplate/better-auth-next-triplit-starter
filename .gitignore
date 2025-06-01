@@ -45,3 +45,7 @@ yarn-error.log*
 # workspace
 .turbo
 .vscode
+
+# Serwist
+public/sw*
+public/swe-worker*
