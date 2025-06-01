@@ -18,13 +18,15 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
 	usePersistSession(authClient)
 	const online = useOnlineStatus()
 
-	const { data: sessionData, isPending: sessionPending } = authClient.useSession()
+	const { data: sessionData, isPending: sessionPending } =
+		authClient.useSession()
 
 	useEffect(() => {
 		const startSession = async () => {
 			if (sessionPending) return
 
-			const token = sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
+			const token =
+				sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
 			if (triplit.token === token) return
 
 			// Temporary hack to fix loaders during account switching
@@ -51,11 +53,13 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
 			console.error("onSessionError", error)
 		})
 
-		const unbindOnFailureToSyncWrites = triplit.onFailureToSyncWrites((error) => {
-			console.error("onFailureToSyncWrites", error)
-			toast.error("Failed to sync writes, clearing pending changes")
-			triplit.clearPendingChangesAll()
-		})
+		const unbindOnFailureToSyncWrites = triplit.onFailureToSyncWrites(
+			(error) => {
+				console.error("onFailureToSyncWrites", error)
+				toast.error("Failed to sync writes, clearing pending changes")
+				triplit.clearPendingChangesAll()
+			}
+		)
 
 		return () => {
 			unbindOnSessionError()

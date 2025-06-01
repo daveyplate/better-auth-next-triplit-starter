@@ -20,7 +20,8 @@ export function subscribePersistSession(authClient: AnyAuthClient) {
 			!persistentSessionData ||
 			(!sessionData && !value?.error) ||
 			(sessionData &&
-				SuperJSON.stringify(sessionData) !== SuperJSON.stringify(persistentSessionData))
+				SuperJSON.stringify(sessionData) !==
+					SuperJSON.stringify(persistentSessionData))
 		) {
 			$persistentSession.set(value)
 		}
@@ -52,10 +53,12 @@ export function subscribePersistSession(authClient: AnyAuthClient) {
 		restoreSession()
 	})
 
-	const unbindSessionListener = authClient.$store.atoms.session.subscribe(() => {
-		persistSession()
-		restoreSession()
-	})
+	const unbindSessionListener = authClient.$store.atoms.session.subscribe(
+		() => {
+			persistSession()
+			restoreSession()
+		}
+	)
 
 	return () => {
 		unbindSessionListener()

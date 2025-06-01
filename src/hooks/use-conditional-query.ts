@@ -10,7 +10,10 @@ import type { WorkerClient } from "@triplit/client/worker-client"
 import { createStateSubscription } from "@triplit/react"
 import { useCallback, useMemo, useSyncExternalStore } from "react"
 
-export function useConditionalQuery<M extends Models<M>, Q extends SchemaQuery<M>>(
+export function useConditionalQuery<
+	M extends Models<M>,
+	Q extends SchemaQuery<M>
+>(
 	client: TriplitClient<M> | WorkerClient<M>,
 	query?: Q | false | null | "" | 0,
 	options?: Partial<SubscriptionOptions> & { disabled?: boolean }
@@ -41,21 +44,27 @@ export function useConditionalQuery<M extends Models<M>, Q extends SchemaQuery<M
 	return useSyncExternalStore(subscribe, snapshot, getServerSnapshot)
 }
 
-type useConditionalQueryOnePayload<M extends Models<M>, Q extends SchemaQuery<M>> = Omit<
-	SubscriptionSignalPayload<M, Q>,
-	"results"
-> & { result: FetchResult<M, Q, "one"> }
+type useConditionalQueryOnePayload<
+	M extends Models<M>,
+	Q extends SchemaQuery<M>
+> = Omit<SubscriptionSignalPayload<M, Q>, "results"> & {
+	result: FetchResult<M, Q, "one">
+}
 
-export function useConditionalQueryOne<M extends Models<M>, Q extends SchemaQuery<M>>(
+export function useConditionalQueryOne<
+	M extends Models<M>,
+	Q extends SchemaQuery<M>
+>(
 	client: TriplitClient<M> | WorkerClient<M>,
 	query?: Q | false | null | "" | 0,
 	options?: Partial<SubscriptionOptions> & { disabled?: boolean }
 ): useConditionalQueryOnePayload<M, Q> {
-	const { fetching, fetchingLocal, fetchingRemote, results, error } = useConditionalQuery(
-		client,
-		query ? ({ ...query, limit: 1 } as Q) : query,
-		options
-	)
+	const { fetching, fetchingLocal, fetchingRemote, results, error } =
+		useConditionalQuery(
+			client,
+			query ? ({ ...query, limit: 1 } as Q) : query,
+			options
+		)
 
 	const result = useMemo(() => {
 		return results?.[0] ?? null

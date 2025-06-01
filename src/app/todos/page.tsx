@@ -20,7 +20,11 @@ function useTodos() {
 		.Order("createdAt", "DESC")
 		.Where("userId", "=", sessionData?.user.id)
 
-	const { results: todos, error, fetching } = useConditionalQuery(triplit, token && todosQuery)
+	const {
+		results: todos,
+		error,
+		fetching
+	} = useConditionalQuery(triplit, token && todosQuery)
 
 	return { todos, error, fetching }
 }

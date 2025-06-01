@@ -24,7 +24,10 @@ export function ModeToggle() {
 				</Button>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
+			<DropdownMenuContent
+				align="end"
+				onCloseAutoFocus={(e) => e.preventDefault()}
+			>
 				<DropdownMenuItem onClick={() => setTheme("light")}>
 					<SunIcon />
 					Light

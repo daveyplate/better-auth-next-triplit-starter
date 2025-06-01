@@ -5,7 +5,8 @@ import { triplit } from "@/triplit/client"
 
 export function useTriplitToken() {
 	const connectionStatus = useConnectionStatus(triplit)
-	const [connectionOptions, setConnectionOptions] = useState<ConnectionOptionsChange>()
+	const [connectionOptions, setConnectionOptions] =
+		useState<ConnectionOptionsChange>()
 
 	useEffect(() => {
 		return triplit.onConnectionOptionsChange((options) =>

@@ -8,9 +8,6 @@
 	"files": {
 		"includes": ["**", "!src/components/ui/**", "!**/*.css"]
 	},
-	"formatter": {
-		"lineWidth": 100
-	},
 	"linter": {
 		"rules": {
 			"a11y": {

@@ -5,7 +5,11 @@ import { useConditionalQueryOne } from "./use-conditional-query"
 import { useTriplitToken } from "./use-triplit-token"
 
 export function useTriplitSession() {
-	const { data: sessionData, isPending: sessionPending, error } = authClient.useSession()
+	const {
+		data: sessionData,
+		isPending: sessionPending,
+		error
+	} = authClient.useSession()
 	const { token } = useTriplitToken()
 	const { result: user } = useConditionalQueryOne(
 		triplit,

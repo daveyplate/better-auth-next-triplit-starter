@@ -40,7 +40,11 @@ export function Header() {
 						href="https://github.com/daveyplate/better-auth-nextjs-triplit-starter"
 						target="_blank"
 					>
-						<Button variant="outline" size="icon" className="size-8 rounded-full">
+						<Button
+							variant="outline"
+							size="icon"
+							className="size-8 rounded-full"
+						>
 							<GitHubIcon />
 						</Button>
 					</Link>

@@ -19,10 +19,14 @@ export const emptyResponse = {
 	refetch: undefined
 }
 
-const $persistentSessions = persistentAtom<DeviceSessionsResult>("device-sessions", emptyResponse, {
-	encode: SuperJSON.stringify,
-	decode: SuperJSON.parse
-})
+const $persistentSessions = persistentAtom<DeviceSessionsResult>(
+	"device-sessions",
+	emptyResponse,
+	{
+		encode: SuperJSON.stringify,
+		decode: SuperJSON.parse
+	}
+)
 
 export const $freshSessions = computed(
 	[$authClient, $persistentSession],
@@ -33,7 +37,9 @@ export const $freshSessions = computed(
 
 			try {
 				// biome-ignore lint/suspicious/noExplicitAny: Any
-				const deviceSessions = await (authClient as any).multiSession.listDeviceSessions({
+				const deviceSessions = await (
+					authClient as any
+				).multiSession.listDeviceSessions({
 					fetchOptions: { throw: true }
 				})
 
@@ -64,7 +70,10 @@ export const $deviceSessions = computed(
 
 		if (!persistentSession.data) {
 			$persistentSessions.set(emptyResponse)
-		} else if (freshSessions.data || (!persistentSessions.data && freshSessions.error)) {
+		} else if (
+			freshSessions.data ||
+			(!persistentSessions.data && freshSessions.error)
+		) {
 			$persistentSessions.set(freshSessions)
 		}
 

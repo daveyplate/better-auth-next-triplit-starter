@@ -2,7 +2,10 @@
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: Flexible */
 
 import { useStore } from "@nanostores/react"
-import { $deviceSessions, emptyResponse } from "@/better-auth-persistent/device-sessions"
+import {
+	$deviceSessions,
+	emptyResponse
+} from "@/better-auth-persistent/device-sessions"
 import { useIsHydrated } from "../hooks/use-hydrated"
 
 export function useListDeviceSessions() {

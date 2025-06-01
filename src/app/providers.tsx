@@ -27,7 +27,12 @@ export function Providers({ children }: { children: ReactNode }) {
 	const userId = sessionData?.user.id
 
 	return (
-		<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+		<ThemeProvider
+			attribute="class"
+			defaultTheme="system"
+			enableSystem
+			disableTransitionOnChange
+		>
 			<AuthUIProvider
 				authClient={authClient}
 				multiSession

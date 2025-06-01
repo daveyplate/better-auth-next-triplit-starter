@@ -20,7 +20,11 @@ export function AuthView({ pathname }: { pathname: string }) {
 				)}
 			>
 				Powered by{" "}
-				<Link className="text-warning underline" href="https://better-auth.com" target="_blank">
+				<Link
+					className="text-warning underline"
+					href="https://better-auth.com"
+					target="_blank"
+				>
 					better-auth.
 				</Link>
 			</p>
