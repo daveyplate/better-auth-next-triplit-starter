@@ -5,7 +5,7 @@ import { useStore } from "@nanostores/react"
 import { $deviceSessions, emptyResponse } from "@/better-auth-persistent/device-sessions"
 import { useIsHydrated } from "../hooks/use-hydrated"
 
-export function useDeviceSessions() {
+export function useListDeviceSessions() {
     const isHydrated = useIsHydrated()
     const result = useStore($deviceSessions)
 

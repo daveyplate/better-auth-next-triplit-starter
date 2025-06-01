@@ -8,7 +8,7 @@ import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
 
 import { setActiveSession } from "@/better-auth-persistent/set-active-session"
-import { useDeviceSessions } from "@/better-auth-persistent/use-device-sessions"
+import { useListDeviceSessions } from "@/better-auth-persistent/use-list-device-sessions"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useMetaTheme } from "@/hooks/use-meta-theme"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
@@ -38,7 +38,7 @@ export function Providers({ children }: { children: ReactNode }) {
                 multiSession
                 hooks={{
                     useSession: useTriplitSession,
-                    useListDeviceSessions: useDeviceSessions,
+                    useListDeviceSessions: useListDeviceSessions,
                     useListSessions: () => {
                         const {
                             results: data,
