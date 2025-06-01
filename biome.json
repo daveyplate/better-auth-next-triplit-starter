@@ -19,6 +19,9 @@
                 "noSvgWithoutTitle": "off",
                 "useGenericFontNames": "off"
             },
+            "correctness": {
+                "useHookAtTopLevel": "off"
+            },
             "suspicious": {
                 "noArrayIndexKey": "off",
                 "noDoubleEquals": {

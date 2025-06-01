@@ -23,6 +23,18 @@ export const authSchema = S.Collections({
             authenticated: {
                 read: {
                     filter: [["id", "=", "$token.sub"]]
+                },
+                update: {
+                    filter: [["id", "=", "$token.sub"]]
+                },
+                postUpdate: {
+                    filter: [
+                        ["id", "=", "$token.sub"],
+                        ["email", "=", "$prev.email"],
+                        ["emailVerified", "=", "$prev.emailVerified"],
+                        ["createdAt", "=", "$prev.createdAt"],
+                        ["updatedAt", ">", "$prev.updatedAt"]
+                    ]
                 }
             }
         }
@@ -44,6 +56,9 @@ export const authSchema = S.Collections({
         permissions: {
             authenticated: {
                 read: {
+                    filter: [["userId", "=", "$token.sub"]]
+                },
+                delete: {
                     filter: [["userId", "=", "$token.sub"]]
                 }
             }
@@ -72,6 +87,12 @@ export const authSchema = S.Collections({
             authenticated: {
                 read: {
                     filter: [["userId", "=", "$token.sub"]]
+                },
+                delete: {
+                    filter: [
+                        ["userId", "=", "$token.sub"],
+                        ["providerId", "!=", "credential"]
+                    ]
                 }
             }
         }
