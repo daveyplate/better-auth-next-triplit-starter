@@ -36,12 +36,11 @@ export const $freshSessions = computed(
 			if (!persistentSession.data) return emptyResponse
 
 			try {
-				// biome-ignore lint/suspicious/noExplicitAny: Any
-				const deviceSessions = await (
-					authClient as any
-				).multiSession.listDeviceSessions({
-					fetchOptions: { throw: true }
-				})
+				const deviceSessions =
+					await // biome-ignore lint/suspicious/noExplicitAny: Any
+					(authClient as any).multiSession.listDeviceSessions({
+						fetchOptions: { throw: true }
+					})
 
 				return {
 					data: deviceSessions,
