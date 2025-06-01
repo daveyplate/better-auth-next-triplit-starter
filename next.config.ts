@@ -7,7 +7,13 @@ const withSerwist = withSerwistInit({
     swSrc: "src/app/sw.ts",
     swDest: "public/sw.js",
     disable: process.env.NODE_ENV !== "production",
-    additionalPrecacheEntries: [{ url: "/", revision }]
+    additionalPrecacheEntries: [
+        { url: "/~offline", revision },
+        { url: "/", revision },
+        { url: "/todos", revision },
+        { url: "/test", revision },
+        { url: "/auth/settings", revision }
+    ]
 })
 
 const nextConfig: NextConfig = {
