@@ -25,16 +25,20 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
     initialScale: 1,
     viewportFit: "cover",
-    width: "device-width",
-    themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "oklch(1 0 0)" },
-        { media: "(prefers-color-scheme: dark)", color: "oklch(0.145 0 0)" }
-    ]
+    width: "device-width"
+    // themeColor: [
+    //     { media: "(prefers-color-scheme: light)", color: "oklch(1 0 0)" },
+    //     { media: "(prefers-color-scheme: dark)", color: "oklch(0.145 0 0)" }
+    // ]
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                <meta name="theme-color" content="var(--bg-background)" />
+            </head>
+
             <body
                 className={`${geistSans.variable} ${geistMono.variable} flex min-h-svh flex-col antialiased`}
             >
