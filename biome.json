@@ -1,62 +1,60 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.0.0-beta.5/schema.json",
-    "vcs": {
-        "enabled": true,
-        "clientKind": "git",
-        "useIgnoreFile": true
-    },
-    "files": {
-        "includes": ["**", "!src/components/ui/**"]
-    },
-    "formatter": {
-        "indentStyle": "space",
-        "indentWidth": 4,
-        "lineWidth": 100
-    },
-    "linter": {
-        "rules": {
-            "a11y": {
-                "noSvgWithoutTitle": "off",
-                "useGenericFontNames": "off"
-            },
-            "correctness": {
-                "useHookAtTopLevel": "off"
-            },
-            "suspicious": {
-                "noArrayIndexKey": "off",
-                "noDoubleEquals": {
-                    "fix": "safe",
-                    "level": "warn",
-                    "options": {}
-                }
-            },
-            "style": {
-                "noNonNullAssertion": "off",
-                "useSelfClosingElements": {
-                    "fix": "safe",
-                    "level": "info",
-                    "options": {}
-                },
-                "useTemplate": {
-                    "fix": "safe",
-                    "level": "info"
-                }
-            },
-            "nursery": {
-                "useSortedClasses": {
-                    "fix": "safe",
-                    "level": "info",
-                    "options": {
-                        "functions": ["cn"]
-                    }
-                }
-            }
-        }
-    },
-    "javascript": {
-        "formatter": {
-            "semicolons": "asNeeded",
-            "trailingCommas": "none"
-        }
-    }
+	"$schema": "https://biomejs.dev/schemas/2.0.0-beta.5/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"includes": ["**", "!src/components/ui/**"]
+	},
+	"formatter": {
+		"lineWidth": 100
+	},
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noSvgWithoutTitle": "off",
+				"useGenericFontNames": "off"
+			},
+			"correctness": {
+				"useHookAtTopLevel": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off",
+				"noDoubleEquals": {
+					"fix": "safe",
+					"level": "warn",
+					"options": {}
+				}
+			},
+			"style": {
+				"noNonNullAssertion": "off",
+				"useSelfClosingElements": {
+					"fix": "safe",
+					"level": "info",
+					"options": {}
+				},
+				"useTemplate": {
+					"fix": "safe",
+					"level": "info"
+				}
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"fix": "safe",
+					"level": "info",
+					"options": {
+						"functions": ["cn"]
+					}
+				}
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "asNeeded",
+			"trailingCommas": "none"
+		}
+	}
 }

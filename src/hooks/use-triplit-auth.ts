@@ -10,67 +10,67 @@ import type { authClient } from "@/lib/auth-client"
 import { useOnlineStatus } from "./use-online-status"
 
 interface UseTriplitAuthOptions {
-    triplit: TriplitClient<any>
-    authClient: typeof authClient
+	triplit: TriplitClient<any>
+	authClient: typeof authClient
 }
 
 export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
-    usePersistSession(authClient)
-    const online = useOnlineStatus()
+	usePersistSession(authClient)
+	const online = useOnlineStatus()
 
-    const { data: sessionData, isPending: sessionPending } = authClient.useSession()
+	const { data: sessionData, isPending: sessionPending } = authClient.useSession()
 
-    useEffect(() => {
-        const startSession = async () => {
-            if (sessionPending) return
+	useEffect(() => {
+		const startSession = async () => {
+			if (sessionPending) return
 
-            const token = sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
-            if (triplit.token === token) return
+			const token = sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
+			if (triplit.token === token) return
 
-            // Temporary hack to fix loaders during account switching
-            if (triplit.token) {
-                await triplit.endSession()
-                await new Promise((resolve) => setTimeout(resolve, 100))
-            }
+			// Temporary hack to fix loaders during account switching
+			if (triplit.token) {
+				await triplit.endSession()
+				await new Promise((resolve) => setTimeout(resolve, 100))
+			}
 
-            // Clear local DB when we sign out
-            if (!sessionData) {
-                await triplit.clear()
-            }
+			// Clear local DB when we sign out
+			if (!sessionData) {
+				await triplit.clear()
+			}
 
-            try {
-                await triplit.startSession(token)
-            } catch (error) {
-                console.error(error)
-            }
-        }
+			try {
+				await triplit.startSession(token)
+			} catch (error) {
+				console.error(error)
+			}
+		}
 
-        startSession()
+		startSession()
 
-        const unbindOnSessionError = triplit.onSessionError((error) => {
-            console.error("onSessionError", error)
-        })
+		const unbindOnSessionError = triplit.onSessionError((error) => {
+			console.error("onSessionError", error)
+		})
 
-        const unbindOnFailureToSyncWrites = triplit.onFailureToSyncWrites((error) => {
-            console.error("onFailureToSyncWrites", error)
-            toast.error("Failed to sync writes, clearing pending changes")
-            triplit.clearPendingChangesAll()
-        })
+		const unbindOnFailureToSyncWrites = triplit.onFailureToSyncWrites((error) => {
+			console.error("onFailureToSyncWrites", error)
+			toast.error("Failed to sync writes, clearing pending changes")
+			triplit.clearPendingChangesAll()
+		})
 
-        return () => {
-            unbindOnSessionError()
-            unbindOnFailureToSyncWrites()
-        }
-    }, [sessionPending, sessionData, triplit])
+		return () => {
+			unbindOnSessionError()
+			unbindOnFailureToSyncWrites()
+		}
+	}, [sessionPending, sessionData, triplit])
 
-    useEffect(() => {
-        if (!online) return
+	useEffect(() => {
+		if (!online) return
 
-        const persistentSession = $persistentSession.get()
-        if (persistentSession.optimistic && persistentSession.data) {
-            authClient.multiSession.setActive({
-                sessionToken: persistentSession.data.session.token
-            })
-        }
-    }, [online])
+		const persistentSession = $persistentSession.get()
+		if (persistentSession.optimistic && persistentSession.data) {
+			authClient.multiSession.setActive({
+				sessionToken: persistentSession.data.session.token
+			})
+		}
+	}, [online])
 }

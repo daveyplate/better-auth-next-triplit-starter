@@ -18,92 +18,87 @@ import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
-    useMetaTheme()
-    useTriplitAuth({ triplit, authClient })
-    const { token } = useTriplitToken()
-    const router = useRouter()
+	useMetaTheme()
+	useTriplitAuth({ triplit, authClient })
+	const { token } = useTriplitToken()
+	const router = useRouter()
 
-    const { data: sessionData } = useTriplitSession()
-    const userId = sessionData?.user.id
+	const { data: sessionData } = useTriplitSession()
+	const userId = sessionData?.user.id
 
-    return (
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-        >
-            <AuthUIProvider
-                authClient={authClient}
-                multiSession
-                hooks={{
-                    useSession: useTriplitSession,
-                    useListDeviceSessions: useListDeviceSessions,
-                    useListSessions: () => {
-                        const {
-                            results: data,
-                            fetching: isPending,
-                            error
-                        } = useConditionalQuery(
-                            triplit,
-                            token && triplit.query("sessions").Where("userId", "=", userId)
-                        )
+	return (
+		<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+			<AuthUIProvider
+				authClient={authClient}
+				multiSession
+				hooks={{
+					useSession: useTriplitSession,
+					useListDeviceSessions: useListDeviceSessions,
+					useListSessions: () => {
+						const {
+							results: data,
+							fetching: isPending,
+							error
+						} = useConditionalQuery(
+							triplit,
+							token && triplit.query("sessions").Where("userId", "=", userId)
+						)
 
-                        return { data, isPending, error }
-                    },
-                    useListAccounts: () => {
-                        const {
-                            results,
-                            fetching: isPending,
-                            error
-                        } = useConditionalQuery(
-                            triplit,
-                            token && triplit.query("accounts").Where("userId", "=", userId)
-                        )
+						return { data, isPending, error }
+					},
+					useListAccounts: () => {
+						const {
+							results,
+							fetching: isPending,
+							error
+						} = useConditionalQuery(
+							triplit,
+							token && triplit.query("accounts").Where("userId", "=", userId)
+						)
 
-                        const data = useMemo(() => {
-                            return results?.map((account) => ({
-                                accountId: account.id,
-                                provider: account.providerId
-                            }))
-                        }, [results])
+						const data = useMemo(() => {
+							return results?.map((account) => ({
+								accountId: account.id,
+								provider: account.providerId
+							}))
+						}, [results])
 
-                        return { data, isPending, error }
-                    }
-                }}
-                mutators={{
-                    setActiveSession: setActiveSession,
-                    updateUser: (params) =>
-                        triplit.update("users", userId!, {
-                            ...params,
-                            updatedAt: new Date()
-                        }),
-                    revokeSession: async ({ token }) => {
-                        const session = await triplit.fetchOne(
-                            triplit.query("sessions").Where("token", "=", token)
-                        )
+						return { data, isPending, error }
+					}
+				}}
+				mutators={{
+					setActiveSession: setActiveSession,
+					updateUser: (params) =>
+						triplit.update("users", userId!, {
+							...params,
+							updatedAt: new Date()
+						}),
+					revokeSession: async ({ token }) => {
+						const session = await triplit.fetchOne(
+							triplit.query("sessions").Where("token", "=", token)
+						)
 
-                        if (!session) throw new Error("Session not found")
+						if (!session) throw new Error("Session not found")
 
-                        await triplit.http.delete("sessions", session.id)
-                    },
-                    unlinkAccount: async ({ accountId }) => {
-                        if (!accountId) throw new Error("Account not found")
+						await triplit.http.delete("sessions", session.id)
+					},
+					unlinkAccount: async ({ accountId }) => {
+						if (!accountId) throw new Error("Account not found")
 
-                        await triplit.http.delete("accounts", accountId)
-                    }
-                }}
-                navigate={router.push}
-                replace={router.replace}
-                onSessionChange={() => {
-                    router.refresh()
-                }}
-                Link={Link}
-            >
-                {children}
+						await triplit.http.delete("accounts", accountId)
+					}
+				}}
+				navigate={router.push}
+				replace={router.replace}
+				onSessionChange={() => {
+					router.refresh()
+				}}
+				Link={Link}
+			>
+				{children}
 
-                <Toaster />
-            </AuthUIProvider>
-        </ThemeProvider>
-    )
+				<Toaster />
+			</AuthUIProvider>
+		</ThemeProvider>
+	)
 }
