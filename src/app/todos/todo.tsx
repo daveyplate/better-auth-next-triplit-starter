@@ -25,9 +25,7 @@ export default function Todo({ todo }: { todo: Todo }) {
 			<Button
 				size="icon"
 				variant="ghost"
-				onClick={() => {
-					triplit.delete("todos", todo.id)
-				}}
+				onClick={() => triplit.delete("todos", todo.id)}
 			>
 				<XIcon />
 			</Button>
