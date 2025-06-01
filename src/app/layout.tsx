@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en" suppressHydrationWarning>
             <head>
-                <meta name="theme-color" content="var(--bg-background)" />
+                <meta name="theme-color" content="var(--background)" />
             </head>
 
             <body
