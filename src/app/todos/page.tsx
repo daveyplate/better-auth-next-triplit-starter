@@ -3,7 +3,6 @@
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { Loader2 } from "lucide-react"
 import { type FormEvent, useState } from "react"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
@@ -12,7 +11,12 @@ import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 
 function useTodos() {
-    const todosQuery = triplit.query("todos").Order("createdAt", "DESC")
+    const { data: sessionData } = authClient.useSession()
+    const todosQuery = triplit
+        .query("todos")
+        .Order("createdAt", "DESC")
+        .Where("userId", "=", sessionData?.user.id)
+
     const {
         results: todos,
         error,

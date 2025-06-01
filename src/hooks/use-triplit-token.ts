@@ -3,7 +3,7 @@ import { useConnectionStatus } from "@triplit/react"
 import { useEffect, useMemo, useState } from "react"
 import { triplit } from "@/triplit/client"
 
-export function useTriplitTokenOld() {
+export function useTriplitToken() {
     const connectionStatus = useConnectionStatus(triplit)
     const [connectionOptions, setConnectionOptions] = useState<ConnectionOptionsChange>()
 

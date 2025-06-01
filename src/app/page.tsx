@@ -2,17 +2,8 @@
 
 import Image from "next/image"
 import { AccountSwitcher } from "@/components/account-switcher"
-import { useDeviceSessions } from "@/hooks/use-device-sessions"
 
 export default function Home() {
-    const { data, isPending } = useDeviceSessions()
-    console.log({ data, isPending })
-    // const { data, isPending } = authClient.useSession()
-
-    // useEffect(() => {
-    //     console.log({ data, isPending })
-    // }, [data, isPending])
-
     return (
         <div className="grid grow grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
             <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
@@ -34,15 +25,6 @@ export default function Home() {
                     </li>
                     <li>Save and see your changes instantly.</li>
                 </ol>
-
-                <div>
-                    {data?.map((session) => (
-                        <div key={session.session.id}>
-                            <p>{session.session.id}</p>
-                            <p>{session.session.token}</p>
-                        </div>
-                    ))}
-                </div>
 
                 <AccountSwitcher />
                 <div className="flex flex-col items-center gap-4 sm:flex-row">

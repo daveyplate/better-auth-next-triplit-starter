@@ -1,4 +1,5 @@
 import type { Session, User } from "better-auth"
+import SuperJSON from "superjson"
 import type { AnyAuthClient } from "@/types/any-auth-client"
 import { $authClient } from "./auth-client-store"
 import { $persistentSession } from "./persistent-session"
@@ -18,21 +19,32 @@ export function subscribePersistSession(authClient: AnyAuthClient) {
         if (
             !persistentSessionData ||
             (!sessionData && !value?.error) ||
-            (sessionData && sessionData.session.userId === persistentSessionData.session.userId)
+            (sessionData &&
+                SuperJSON.stringify(sessionData) !== SuperJSON.stringify(persistentSessionData))
         ) {
             $persistentSession.set(value)
         }
     }
 
     const restoreSession = () => {
-        const sessionData = authClient.$store.atoms.session.get()?.data as SessionData | null
+        const value = authClient.$store.atoms.session.get()
+        const sessionData = value?.data as SessionData | null
         const persistentValue = $persistentSession.get()
         const persistentSessionData = $persistentSession.get()?.data
 
         if (!persistentSessionData) return
 
         if (!sessionData || persistentSessionData.user.id !== sessionData.user.id) {
-            authClient.$store.atoms.session.set(persistentValue)
+            if (sessionData) {
+                console.log("set active session", {
+                    sessionToken: persistentSessionData.session.token
+                })
+            }
+
+            authClient.$store.atoms.session.set({
+                ...persistentValue,
+                refetch: value?.refetch
+            })
         }
     }
 

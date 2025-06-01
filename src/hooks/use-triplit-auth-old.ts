@@ -4,11 +4,11 @@ import { toast } from "sonner"
 
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
-import { useTriplitTokenOld } from "./use-triplit-token-old"
+import { useTriplitToken } from "./use-triplit-token"
 
 export function useTriplitAuthOld() {
     const router = useRouter()
-    const { payload } = useTriplitTokenOld()
+    const { payload } = useTriplitToken()
     const {
         data: sessionData,
         isPending: sessionPending,

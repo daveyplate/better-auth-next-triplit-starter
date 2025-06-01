@@ -1,3 +1,4 @@
+import { authClient } from "@/lib/auth-client"
 import { $deviceSessions } from "./device-sessions"
 import { $persistentSession } from "./persistent-session"
 
@@ -22,5 +23,9 @@ export async function setActiveSession({ sessionToken }: { sessionToken: string 
         isRefetching: false,
         error: null,
         refetch: undefined
+    })
+
+    authClient.multiSession.setActive({
+        sessionToken: session.session.token
     })
 }
