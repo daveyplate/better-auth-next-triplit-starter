@@ -26,9 +26,13 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
         const startSession = async () => {
             if (triplit.token === sessionData?.session.token) return
 
-            await triplit.endSession()
-            await new Promise((resolve) => setTimeout(resolve, 100))
+            // Temporary hack to fix loaders during account switching
+            if (triplit.token) {
+                await triplit.endSession()
+                await new Promise((resolve) => setTimeout(resolve, 100))
+            }
 
+            // Clear local DB when we sign out
             if (!sessionData) {
                 await triplit.clear()
             }
@@ -44,19 +48,19 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
 
         startSession()
 
-        const unsub = triplit.onSessionError((error) => {
+        const unbindOnSessionError = triplit.onSessionError((error) => {
             console.error("onSessionError", error)
         })
 
-        const unsub2 = triplit.onFailureToSyncWrites((error) => {
+        const unbindOnFailureToSyncWrites = triplit.onFailureToSyncWrites((error) => {
             console.error("onFailureToSyncWrites", error)
             toast.error("Failed to sync writes, clearing pending changes")
             triplit.clearPendingChangesAll()
         })
 
         return () => {
-            unsub()
-            unsub2()
+            unbindOnSessionError()
+            unbindOnFailureToSyncWrites()
         }
     }, [sessionPending, sessionData, triplit])
 
