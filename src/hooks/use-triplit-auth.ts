@@ -26,7 +26,7 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
 
             await triplit.endSession()
 
-            while (triplit.connectionStatus === "OPEN") {
+            while (triplit.connectionStatus === "OPEN" || triplit.connectionStatus === "CLOSING") {
                 await new Promise((resolve) => requestAnimationFrame(resolve))
             }
 
