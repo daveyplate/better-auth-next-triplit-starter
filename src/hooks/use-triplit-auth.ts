@@ -4,6 +4,7 @@
 import type { TriplitClient } from "@triplit/client"
 import { useConnectionStatus } from "@triplit/react"
 import { useEffect } from "react"
+import { $persistentSession } from "@/better-auth-persistent/persistent-session"
 import { usePersistSession } from "@/better-auth-persistent/use-persist-session"
 import type { authClient } from "@/lib/auth-client"
 
@@ -24,13 +25,8 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
         const startSession = async () => {
             if (triplit.token === sessionData?.session.token) return
 
-            await triplit.endSession()
-
-            while (triplit.connectionStatus === "OPEN" || triplit.connectionStatus === "CLOSING") {
-                await new Promise((resolve) => requestAnimationFrame(resolve))
-            }
-
             if (!sessionData) {
+                await triplit.endSession()
                 await triplit.clear()
             }
 
@@ -39,7 +35,7 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
                     sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
                 )
             } catch (error) {
-                console.error("startSession", error)
+                console.error(error)
             }
         }
 
@@ -47,15 +43,24 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
     }, [sessionPending, sessionData, triplit])
 
     useEffect(() => {
-        triplit.onSessionError((error) => {
+        const unsub = triplit.onSessionError((error) => {
             console.error("onSessionError", error)
         })
+
+        return () => {
+            unsub()
+        }
     }, [triplit])
 
     useEffect(() => {
-        // console.log({ connectionStatus })
         if (connectionStatus !== "OPEN") return
 
-        // refetch()
+        // Call SetActive on session when we reconnect
+        const persistentSession = $persistentSession.get()
+        if (persistentSession.optimistic && persistentSession.data) {
+            authClient.multiSession.setActive({
+                sessionToken: persistentSession.data.session.token
+            })
+        }
     }, [connectionStatus])
 }

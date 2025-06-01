@@ -25,7 +25,20 @@ export async function setActiveSession({ sessionToken }: { sessionToken: string 
         refetch: undefined
     })
 
-    authClient.multiSession.setActive({
-        sessionToken: session.session.token
-    })
+    authClient.multiSession
+        .setActive({
+            sessionToken: session.session.token
+        })
+        .then(({ error }) => {
+            if (error) {
+                $persistentSession.set({
+                    data: session,
+                    isPending: false,
+                    isRefetching: false,
+                    optimistic: true,
+                    error: null,
+                    refetch: undefined
+                })
+            }
+        })
 }

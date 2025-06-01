@@ -2,15 +2,16 @@ import { persistentAtom } from "@nanostores/persistent"
 import type { Session, User } from "better-auth"
 import SuperJSON from "superjson"
 
-type SessionResult = {
+type PersistentSessionResult = {
     data: { session: Session; user: User } | null
     isPending: boolean
     isRefetching: boolean
+    optimistic?: boolean
     error: Error | null
     refetch: undefined
 }
 
-export const $persistentSession = persistentAtom<SessionResult>(
+export const $persistentSession = persistentAtom<PersistentSessionResult>(
     "session",
     {
         data: null,
