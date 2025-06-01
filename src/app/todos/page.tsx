@@ -3,6 +3,7 @@
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { Loader2 } from "lucide-react"
 import { type FormEvent, useState } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
@@ -28,14 +29,16 @@ function useTodos() {
 
 export default function TodosPage() {
     useAuthenticate()
-
     const { data: sessionData } = authClient.useSession()
-    const [text, setText] = useState("")
+
     const { todos, fetching } = useTodos()
+    const [text, setText] = useState("")
 
     const handleSubmit = async (e: FormEvent) => {
-        if (!sessionData?.user?.id) return
         e.preventDefault()
+
+        if (!sessionData?.user?.id) return
+
         await triplit.insert("todos", { userId: sessionData.user.id, text })
         setText("")
     }
@@ -58,6 +61,7 @@ export default function TodosPage() {
             </form>
 
             {todos?.length === 0 && <p>No todos</p>}
+
             <div>
                 {todos?.map((todo) => (
                     <Todo key={todo.id} todo={todo} />

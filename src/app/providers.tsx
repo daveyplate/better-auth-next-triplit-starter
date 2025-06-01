@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
+
 import { setActiveSession } from "@/better-auth-persistent/set-active-session"
 import { useDeviceSessions } from "@/better-auth-persistent/use-device-sessions"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
@@ -15,9 +16,9 @@ import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
+    useTriplitAuth({ triplit, authClient })
     const router = useRouter()
 
-    useTriplitAuth({ triplit, authClient })
     const { data: sessionData } = useTriplitSession()
     const userId = sessionData?.user.id
 
