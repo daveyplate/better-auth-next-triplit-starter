@@ -21,9 +21,8 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
     const { data: sessionData, isPending: sessionPending } = authClient.useSession()
 
     useEffect(() => {
-        if (sessionPending) return
-
         const startSession = async () => {
+            if (sessionPending) return
             if (triplit.token === sessionData?.session.token) return
 
             // Temporary hack to fix loaders during account switching
