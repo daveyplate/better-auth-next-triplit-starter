@@ -43,9 +43,7 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
         }
 
         startSession()
-    }, [sessionPending, sessionData, triplit])
 
-    useEffect(() => {
         const unsub = triplit.onSessionError((error) => {
             console.error("onSessionError", error)
         })
@@ -60,7 +58,7 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
             unsub()
             unsub2()
         }
-    }, [triplit])
+    }, [sessionPending, sessionData, triplit])
 
     useEffect(() => {
         if (!online) return
