@@ -9,7 +9,7 @@ type Todo = Entity<typeof schema, "todos">
 
 export default function Todo({ todo }: { todo: Todo }) {
 	return (
-		<div className="flex items-center gap-2">
+		<div className="flex items-center gap-3">
 			<Checkbox
 				checked={todo.completed}
 				onCheckedChange={() =>
