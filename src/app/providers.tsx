@@ -9,6 +9,7 @@ import { Toaster } from "sonner"
 
 import { setActiveSession } from "@/better-auth-persistent/set-active-session"
 import { useDeviceSessions } from "@/better-auth-persistent/use-device-sessions"
+import MetaTheme from "@/components/meta-theme"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { useTriplitSession } from "@/hooks/use-triplit-session"
@@ -101,6 +102,7 @@ export function Providers({ children }: { children: ReactNode }) {
                 {children}
 
                 <Toaster />
+                <MetaTheme />
             </AuthUIProvider>
         </ThemeProvider>
     )
