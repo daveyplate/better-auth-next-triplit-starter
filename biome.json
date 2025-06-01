@@ -6,7 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!src/components/ui/**"]
+		"includes": ["**", "!src/components/ui/**", "!**/*.css"]
 	},
 	"formatter": {
 		"lineWidth": 100
