@@ -12,11 +12,13 @@ import { useDeviceSessions } from "@/better-auth-persistent/use-device-sessions"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { useTriplitSession } from "@/hooks/use-triplit-session"
+import { useTriplitToken } from "@/hooks/use-triplit-token"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
     useTriplitAuth({ triplit, authClient })
+    const { token } = useTriplitToken()
     const router = useRouter()
 
     const { data: sessionData } = useTriplitSession()
@@ -42,7 +44,7 @@ export function Providers({ children }: { children: ReactNode }) {
                             error
                         } = useConditionalQuery(
                             triplit,
-                            triplit.query("sessions").Where("userId", "=", userId)
+                            token && triplit.query("sessions").Where("userId", "=", userId)
                         )
 
                         return { data, isPending, error }
@@ -54,7 +56,7 @@ export function Providers({ children }: { children: ReactNode }) {
                             error
                         } = useConditionalQuery(
                             triplit,
-                            triplit.query("accounts").Where("userId", "=", userId)
+                            token && triplit.query("accounts").Where("userId", "=", userId)
                         )
 
                         const data = useMemo(() => {
