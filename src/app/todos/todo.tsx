@@ -24,12 +24,12 @@ export default function Todo({ todo }: { todo: Todo }) {
 
 			<Button
 				size="icon"
-				variant="link"
+				variant="ghost"
 				onClick={() => {
 					triplit.delete("todos", todo.id)
 				}}
 			>
-				<XIcon className="size-3" />
+				<XIcon />
 			</Button>
 		</div>
 	)
