@@ -2,11 +2,12 @@
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: Flexible */
 
 import type { TriplitClient } from "@triplit/client"
-import { useConnectionStatus } from "@triplit/react"
 import { useEffect } from "react"
+import { toast } from "sonner"
 import { $persistentSession } from "@/better-auth-persistent/persistent-session"
 import { usePersistSession } from "@/better-auth-persistent/use-persist-session"
 import type { authClient } from "@/lib/auth-client"
+import { useOnlineStatus } from "./use-online-status"
 
 interface UseTriplitAuthOptions {
     triplit: TriplitClient<any>
@@ -15,8 +16,7 @@ interface UseTriplitAuthOptions {
 
 export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
     usePersistSession(authClient)
-
-    const connectionStatus = useConnectionStatus(triplit)
+    const online = useOnlineStatus()
 
     const { data: sessionData, isPending: sessionPending } = authClient.useSession()
 
@@ -50,20 +50,26 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
             console.error("onSessionError", error)
         })
 
+        const unsub2 = triplit.onFailureToSyncWrites((error) => {
+            console.error("onFailureToSyncWrites", error)
+            toast.error("Failed to sync writes, clearing pending changes")
+            triplit.clearPendingChangesAll()
+        })
+
         return () => {
             unsub()
+            unsub2()
         }
     }, [triplit])
 
     useEffect(() => {
-        if (connectionStatus !== "OPEN") return
+        if (!online) return
 
-        // Call SetActive on session when we reconnect
         const persistentSession = $persistentSession.get()
         if (persistentSession.optimistic && persistentSession.data) {
             authClient.multiSession.setActive({
                 sessionToken: persistentSession.data.session.token
             })
         }
-    }, [connectionStatus])
+    }, [online])
 }
