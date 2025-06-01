@@ -1,4 +1,5 @@
 import type { Entity } from "@triplit/client"
+import { XIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { triplit } from "../../triplit/client"
@@ -23,12 +24,12 @@ export default function Todo({ todo }: { todo: Todo }) {
 
 			<Button
 				size="icon"
-				variant="ghost"
+				variant="link"
 				onClick={() => {
 					triplit.delete("todos", todo.id)
 				}}
 			>
-				❌
+				<XIcon className="size-3" />
 			</Button>
 		</div>
 	)

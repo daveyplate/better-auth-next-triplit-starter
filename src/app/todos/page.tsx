@@ -3,7 +3,7 @@
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { Loader2 } from "lucide-react"
 import { type FormEvent, useState } from "react"
-
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
@@ -41,26 +41,32 @@ export default function TodosPage() {
 
 		if (!sessionData?.user?.id) return
 
+		if (!text) {
+			toast.error("Please enter a todo")
+			return
+		}
+
 		await triplit.insert("todos", { userId: sessionData.user.id, text })
 		setText("")
 	}
 
-	if (fetching) return <Loader2 className="mx-auto my-auto animate-spin" />
-
 	return (
-		<div className="container mx-auto flex flex-col gap-4 p-4">
+		<main className="container mx-auto flex flex-col gap-4 p-4">
 			<form onSubmit={handleSubmit} className="flex gap-2">
 				<Input
 					type="text"
 					placeholder="What needs to be done?"
 					value={text}
+					disabled={fetching}
 					onChange={(e) => setText(e.target.value)}
 				/>
 
-				<Button type="submit" disabled={!text}>
+				<Button type="submit" disabled={fetching}>
 					Add Todo
 				</Button>
 			</form>
+
+			{fetching && <Loader2 className="mx-auto my-auto animate-spin" />}
 
 			{todos?.length === 0 && <p>No todos</p>}
 
@@ -69,6 +75,6 @@ export default function TodosPage() {
 					<Todo key={todo.id} todo={todo} />
 				))}
 			</div>
-		</div>
+		</main>
 	)
 }
