@@ -66,7 +66,7 @@ export default function TodosPage() {
 				</Button>
 			</form>
 
-			{fetching && !todos && (
+			{fetching && (
 				<div>
 					{[...Array(4)].map((_, index) => (
 						<TodoSkeleton key={index} />
