@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker"
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist"
-import { NetworkOnly, Serwist } from "serwist"
+import { ExpirationPlugin, NetworkOnly, Serwist } from "serwist"
 
 declare global {
     interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -21,7 +21,15 @@ const serwist = new Serwist({
     runtimeCaching: [
         {
             matcher: /\/api\/auth\/.*/,
-            handler: new NetworkOnly()
+            handler: new NetworkOnly({
+                plugins: [
+                    new ExpirationPlugin({
+                        maxEntries: 16,
+                        maxAgeSeconds: 24 * 60 * 60
+                    })
+                ],
+                networkTimeoutSeconds: 10
+            })
         },
         ...defaultCache
     ],
