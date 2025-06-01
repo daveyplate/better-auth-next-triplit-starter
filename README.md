@@ -20,6 +20,8 @@ NEXT_PUBLIC_TRIPLIT_DB_URL=$TRIPLIT_DB_URL
 NEXT_PUBLIC_TRIPLIT_ANON_TOKEN=$TRIPLIT_ANON_TOKEN
 ```
 
+**Note:** Set a custom DB name in `src/triplit/client.ts`, it can lead to conflicts if you are developing multiple projects.
+
 - Twitter: [@daveycodez](https://x.com/daveycodez)
 
 ☕️ [Buy me a coffee](https://buymeacoffee.com/daveycodez)
@@ -35,6 +37,8 @@ NEXT_PUBLIC_TRIPLIT_ANON_TOKEN=$TRIPLIT_ANON_TOKEN
 [shadcn/ui](https://ui.shadcn.com)
 
 [TailwindCSS](https://tailwindcss.com)
+
+[Serwist](https://serwist.pages.dev)
 
 [Biome](https://biomejs.dev)
 
