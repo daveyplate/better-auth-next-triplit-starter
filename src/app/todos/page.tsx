@@ -51,7 +51,7 @@ export default function TodosPage() {
 	}
 
 	return (
-		<main className="container mx-auto flex flex-col gap-4 p-4">
+		<main className="container mx-auto flex flex-col gap-4 p-safe-or-4 md:p-safe-or-6">
 			<form onSubmit={handleSubmit} className="flex gap-2">
 				<Input
 					type="text"
