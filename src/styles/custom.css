@@ -29,8 +29,8 @@
 }
 
 /** iOS Dynamic System Font Scaling */
-/* @supports (-webkit-touch-callout:none) {
+@supports (-webkit-touch-callout:none) {
 	html {
 		font: -apple-system-body;
 	}
-} */
+}

@@ -14,8 +14,7 @@
 	"linter": {
 		"rules": {
 			"a11y": {
-				"noSvgWithoutTitle": "off",
-				"useGenericFontNames": "off"
+				"noSvgWithoutTitle": "off"
 			},
 			"correctness": {
 				"useHookAtTopLevel": "off"
