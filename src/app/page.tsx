@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { AccountSwitcher } from "@/components/account-switcher"
 
 export default function Home() {
     return (
@@ -26,7 +25,6 @@ export default function Home() {
                     <li>Save and see your changes instantly.</li>
                 </ol>
 
-                <AccountSwitcher />
                 <div className="flex flex-col items-center gap-4 sm:flex-row">
                     <a
                         className="flex h-10 items-center justify-center gap-2 rounded-full border border-transparent border-solid bg-foreground px-4 text-background text-sm transition-colors hover:bg-[#383838] sm:h-12 sm:px-5 sm:text-base dark:hover:bg-[#ccc]"

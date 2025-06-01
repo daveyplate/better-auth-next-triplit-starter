@@ -15,6 +15,7 @@ interface UseTriplitAuthOptions {
 
 export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
     usePersistSession(authClient)
+
     const connectionStatus = useConnectionStatus(triplit)
 
     const { data: sessionData, isPending: sessionPending } = authClient.useSession()
@@ -25,8 +26,10 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
         const startSession = async () => {
             if (triplit.token === sessionData?.session.token) return
 
+            await triplit.endSession()
+            await new Promise((resolve) => setTimeout(resolve, 100))
+
             if (!sessionData) {
-                await triplit.endSession()
                 await triplit.clear()
             }
 

@@ -3,7 +3,7 @@
 
 import { useStore } from "@nanostores/react"
 import { $deviceSessions, emptyResponse } from "@/better-auth-persistent/device-sessions"
-import { useIsHydrated } from "./use-hydrated"
+import { useIsHydrated } from "../hooks/use-hydrated"
 
 export function useDeviceSessions() {
     const isHydrated = useIsHydrated()
