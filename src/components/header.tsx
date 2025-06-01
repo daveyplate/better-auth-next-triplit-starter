@@ -24,13 +24,12 @@ export function Header() {
                                 fillRule="evenodd"
                             />
                         </svg>
-                        BETTER-AUTH. STARTER
+
+                        <span className="hidden md:block">BETTER-AUTH. STARTER</span>
                     </Link>
-                    |
                     <Link href="/todos" className="font-medium text-sm hover:underline">
                         Todos
                     </Link>
-                    |
                     <Link href="/test" className="font-medium text-sm hover:underline">
                         Test
                     </Link>
