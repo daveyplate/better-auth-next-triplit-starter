@@ -16,7 +16,7 @@ importers:
         version: 0.1.2(@triplit/client@1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.9-beta.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
         specifier: ^1.7.4
-        version: 1.7.4(2382cf973c363dbf476a273c24c5f6b9)
+        version: 1.7.4(c7a11445110052cbf936e0b77c7688dd)
       '@nanostores/persistent':
         specifier: ^1.0.0
         version: 1.0.0(nanostores@1.0.1)
@@ -3522,8 +3522,8 @@ packages:
   zod@3.24.3:
     resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
 
-  zod@3.25.48:
-    resolution: {integrity: sha512-0X1mz8FtgEIvaxGjdIImYpZEaZMrund9pGXm3M6vM7Reba0e2eI71KPjSCGXBfwKDPwPoywf6waUKc3/tFvX2Q==}
+  zod@3.25.49:
+    resolution: {integrity: sha512-JMMPMy9ZBk3XFEdbM3iL1brx4NUSejd6xr3ELrrGEfGb355gjhiAWtG3K5o+AViV/3ZfkIrCzXsZn6SbLwTR8Q==}
 
 snapshots:
 
@@ -3785,7 +3785,7 @@ snapshots:
       semver: 7.7.2
       tinyexec: 0.3.2
       yocto-spinner: 0.1.2
-      zod: 3.25.48
+      zod: 3.25.49
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@babel/core'
@@ -3945,7 +3945,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.7.4(2382cf973c363dbf476a273c24c5f6b9)':
+  '@daveyplate/better-auth-ui@1.7.4(c7a11445110052cbf936e0b77c7688dd)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.79.0)(@tanstack/react-query@5.79.0(react@19.1.0))(better-auth@1.2.9-beta.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3985,7 +3985,7 @@ snapshots:
       tailwind-merge: 3.3.0
       tailwindcss: 4.1.8
       ua-parser-js: 2.0.3
-      zod: 3.25.48
+      zod: 3.25.49
 
   '@emnapi/runtime@1.4.3':
     dependencies:
@@ -5421,7 +5421,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.48
+      zod: 3.25.49
 
   better-auth@1.2.9-beta.8:
     dependencies:
@@ -5436,7 +5436,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.48
+      zod: 3.25.49
 
   better-call@1.0.9:
     dependencies:
@@ -6694,4 +6694,4 @@ snapshots:
 
   zod@3.24.3: {}
 
-  zod@3.25.48: {}
+  zod@3.25.49: {}
