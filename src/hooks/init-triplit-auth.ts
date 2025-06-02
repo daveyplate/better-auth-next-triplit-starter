@@ -8,18 +8,18 @@ type SessionData = {
 	user: User
 }
 
-export type SetupTriplitAuthOptions = {
+export type InitTriplitAuthOptions = {
 	anonToken?: string
 	/** @default true */
 	persistent?: boolean
 	onSessionError?: (error: SessionError) => void
 }
 
-export function setupTriplitAuth(
+export function initTriplitAuth(
 	// biome-ignore lint/suspicious/noExplicitAny: ignore
 	triplit: TriplitClient<any>,
 	authClient: AnyAuthClient,
-	{ anonToken, persistent = true, onSessionError }: SetupTriplitAuthOptions = {}
+	{ anonToken, persistent = true, onSessionError }: InitTriplitAuthOptions = {}
 ) {
 	const unbindPersistSession = persistent
 		? subscribePersistSession(authClient)
@@ -29,7 +29,9 @@ export function setupTriplitAuth(
 		const token =
 			sessionData?.session.token ||
 			anonToken ||
-			process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN!
+			process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
+
+		if (!token) return
 		if (triplit.token === token) return
 
 		// Clear local DB when we sign out
@@ -40,6 +42,7 @@ export function setupTriplitAuth(
 		// Update session token if it's the same user and role
 		if (
 			sessionData &&
+			!triplit.awaitReady &&
 			triplit.vars.$token.sub === sessionData.user.id &&
 			// biome-ignore lint/suspicious/noExplicitAny: ignore
 			triplit.vars.$token.role === (sessionData.user as any).role
@@ -56,23 +59,16 @@ export function setupTriplitAuth(
 	}
 
 	const unbindOnSessionChange = authClient.$store.atoms.session.subscribe(
-		(result) => {
-			if (result.isPending) return
-
-			startSession(result.data)
-		}
+		(result) => !result.isPending && startSession(result.data)
 	)
 
 	const unbindOnSessionError = triplit.onSessionError((error) => {
-		if (onSessionError) {
-			onSessionError(error)
-		} else {
-			console.error("onSessionError", error)
-		}
+		console.error(error)
+		onSessionError?.(error)
 	})
 
 	const unbindOnFailureToSyncWrites = triplit.onFailureToSyncWrites((error) => {
-		console.error("onFailureToSyncWrites", error)
+		console.error(error)
 		triplit.clearPendingChangesAll()
 	})
 

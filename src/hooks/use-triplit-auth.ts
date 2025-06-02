@@ -5,17 +5,17 @@ import type { TriplitClient } from "@triplit/client"
 import { useEffect } from "react"
 import type { AnyAuthClient } from "@/types/any-auth-client"
 import {
-	type SetupTriplitAuthOptions,
-	setupTriplitAuth
-} from "./setup-triplit-auth"
+	type InitTriplitAuthOptions,
+	initTriplitAuth
+} from "./init-triplit-auth"
 
 export function useTriplitAuth(
 	triplit: TriplitClient<any>,
 	authClient: AnyAuthClient,
-	options?: SetupTriplitAuthOptions
+	options?: InitTriplitAuthOptions
 ) {
 	useEffect(
-		() => setupTriplitAuth(triplit, authClient, options),
+		() => initTriplitAuth(triplit, authClient, options),
 		[triplit, authClient, options]
 	)
 }
