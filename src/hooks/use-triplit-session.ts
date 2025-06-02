@@ -15,12 +15,10 @@ export function useTriplitSession() {
 	)
 
 	const result = useMemo(() => {
-		if (sessionError)
+		if (!sessionData && !sessionPending)
 			return { data: null, user: null, isPending: false, error: sessionError }
 		if (userError)
 			return { data: null, user: null, isPending: false, error: userError }
-		if (!sessionData && !sessionPending)
-			return { data: null, user: null, isPending: false, error: null }
 		if (!user || !sessionData)
 			return { data: null, user: null, isPending: true, error: null }
 
