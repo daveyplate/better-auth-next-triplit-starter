@@ -1,5 +1,9 @@
 "use client"
 
+import {
+	setActiveSession,
+	useListDeviceSessions
+} from "@daveyplate/better-auth-persistent"
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -7,8 +11,6 @@ import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
 
-import { setActiveSession } from "@/better-auth-persistent/set-active-session"
-import { useListDeviceSessions } from "@/better-auth-persistent/use-list-device-sessions"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useMetaTheme } from "@/hooks/use-meta-theme"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"

@@ -1,10 +1,10 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: Flexible */
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: Flexible */
 
+import { usePersistSession } from "@daveyplate/better-auth-persistent"
 import type { TriplitClient } from "@triplit/client"
 import { useEffect } from "react"
 import { toast } from "sonner"
-import { usePersistSession } from "@/better-auth-persistent/use-persist-session"
 import type { authClient } from "@/lib/auth-client"
 
 interface UseTriplitAuthOptions {

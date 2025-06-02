@@ -10,6 +10,7 @@
 		"check-types": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@daveyplate/better-auth-persistent": "^0.0.1",
 		"@daveyplate/better-auth-triplit": "^0.1.2",
 		"@daveyplate/better-auth-ui": "^1.7.4",
 		"@nanostores/persistent": "^1.0.0",
