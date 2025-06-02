@@ -19,7 +19,7 @@ export default function manifest(): MetadataRoute.Manifest {
 		],
 		theme_color: "#FFFFFF",
 		background_color: "#FFFFFF",
-		start_url: "/?fullscreen=true",
+		start_url: "/",
 		display: "fullscreen",
 		orientation: "portrait"
 	}
