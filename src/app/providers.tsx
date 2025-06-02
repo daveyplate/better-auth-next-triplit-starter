@@ -20,7 +20,7 @@ import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
 	useMetaTheme()
-	useTriplitAuth({ triplit, authClient })
+	useTriplitAuth(triplit, authClient)
 	const router = useRouter()
 
 	const { data: sessionData } = useTriplitSession()

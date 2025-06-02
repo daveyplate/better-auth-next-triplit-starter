@@ -5,14 +5,12 @@ import { subscribePersistSession } from "@daveyplate/better-auth-persistent"
 import type { TriplitClient } from "@triplit/client"
 import { useEffect } from "react"
 import { toast } from "sonner"
-import type { authClient } from "@/lib/auth-client"
+import type { authClient as authClientType } from "@/lib/auth-client"
 
-interface UseTriplitAuthOptions {
-	triplit: TriplitClient<any>
-	authClient: typeof authClient
-}
-
-export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
+export function useTriplitAuth(
+	triplit: TriplitClient<any>,
+	authClient: typeof authClientType
+) {
 	const { data: sessionData, isPending: sessionPending } =
 		authClient.useSession()
 
