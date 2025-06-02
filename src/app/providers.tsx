@@ -38,7 +38,7 @@ export function Providers({ children }: { children: ReactNode }) {
 				multiSession
 				hooks={{
 					useSession: useTriplitSession,
-					useListDeviceSessions: useListDeviceSessions,
+					useListDeviceSessions,
 					useListSessions: () => {
 						const {
 							results: data,
@@ -72,7 +72,7 @@ export function Providers({ children }: { children: ReactNode }) {
 					}
 				}}
 				mutators={{
-					setActiveSession: setActiveSession,
+					setActiveSession,
 					updateUser: (params) =>
 						triplit.update("users", userId!, {
 							...params,

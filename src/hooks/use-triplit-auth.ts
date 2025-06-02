@@ -29,12 +29,6 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
 				sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
 			if (triplit.token === token) return
 
-			// Temporary hack to fix loaders during account switching
-			if (triplit.token) {
-				await triplit.endSession()
-				await new Promise((resolve) => setTimeout(resolve, 100))
-			}
-
 			// Clear local DB when we sign out
 			if (!sessionData) {
 				await triplit.clear()
