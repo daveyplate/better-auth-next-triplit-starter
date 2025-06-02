@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
 
-export default function ErrorPage({
+export default function GlobalError({
 	error,
 	reset
 }: {
@@ -16,10 +16,13 @@ export default function ErrorPage({
 	}, [error])
 
 	return (
-		<main className="flex grow flex-col items-center justify-center gap-12">
-			<h2 className="font-bold text-2xl">Something went wrong!</h2>
+		// global-error must include html and body tags
+		<html lang="en">
+			<body className="flex min-h-svh flex-col items-center justify-center gap-12">
+				<h2 className="font-bold text-2xl">Something went wrong!</h2>
 
-			<Button onClick={() => reset()}>Try again</Button>
-		</main>
+				<Button onClick={() => reset()}>Try again</Button>
+			</body>
+		</html>
 	)
 }
