@@ -48,7 +48,6 @@ const serwist = new Serwist({
 const urlsToPrecache = [
 	"/",
 	"/todos",
-	"/test",
 	"/auth/sign-in",
 	"/auth/sign-up",
 	"/auth/settings"
