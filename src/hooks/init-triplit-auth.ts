@@ -34,11 +34,6 @@ export function initTriplitAuth(
 		if (!token) return
 		if (triplit.token === token) return
 
-		// Clear local DB when we sign out
-		if (!sessionData) {
-			await triplit.clear()
-		}
-
 		// Update session token if it's the same user and role
 		if (
 			sessionData &&
@@ -52,8 +47,15 @@ export function initTriplitAuth(
 		}
 
 		if (triplit.token) {
-			await triplit.endSession()
-			await new Promise((resolve) => setTimeout(resolve, 100))
+			if (triplit.connectionStatus === "OPEN") {
+				await triplit.endSession()
+				await new Promise((resolve) => setTimeout(resolve, 100))
+			}
+		}
+
+		// Clear local DB when we sign out
+		if (!sessionData) {
+			await triplit.clear()
 		}
 
 		try {
