@@ -3,6 +3,7 @@
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
 import { type FormEvent, useState } from "react"
 import { toast } from "sonner"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"

@@ -30,9 +30,7 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
 			if (triplit.token === token) return
 
 			// Clear local DB when we sign out
-			if (!sessionData) {
-				await triplit.clear()
-			}
+			if (!sessionData) await triplit.clear()
 
 			try {
 				await triplit.startSession(token)
