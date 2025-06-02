@@ -1,58 +1,21 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: Flexible */
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: Flexible */
 
-import { subscribePersistSession } from "@daveyplate/better-auth-persistent"
 import type { TriplitClient } from "@triplit/client"
 import { useEffect } from "react"
-import { toast } from "sonner"
 import type { AnyAuthClient } from "@/types/any-auth-client"
+import {
+	type SetupTriplitAuthOptions,
+	setupTriplitAuth
+} from "./setup-triplit-auth"
 
 export function useTriplitAuth(
 	triplit: TriplitClient<any>,
-	authClient: AnyAuthClient
+	authClient: AnyAuthClient,
+	options?: SetupTriplitAuthOptions
 ) {
-	const { data: sessionData, isPending: sessionPending } =
-		authClient.useSession()
-
-	useEffect(() => {
-		const unbindPersistSession = subscribePersistSession(authClient)
-
-		const startSession = async () => {
-			if (sessionPending) return
-
-			const token =
-				sessionData?.session.token || process.env.NEXT_PUBLIC_TRIPLIT_ANON_TOKEN
-			if (triplit.token === token) return
-
-			// Clear local DB when we sign out
-			if (!sessionData) await triplit.clear()
-
-			try {
-				await triplit.startSession(token)
-			} catch (error) {
-				console.error(error)
-			}
-		}
-
-		startSession()
-
-		const unbindOnSessionError = triplit.onSessionError((error) => {
-			console.error("onSessionError", error)
-			toast.error(error)
-		})
-
-		const unbindOnFailureToSyncWrites = triplit.onFailureToSyncWrites(
-			(error) => {
-				console.error("onFailureToSyncWrites", error)
-				toast.error("Failed to sync writes, clearing pending changes")
-				triplit.clearPendingChangesAll()
-			}
-		)
-
-		return () => {
-			unbindPersistSession()
-			unbindOnSessionError()
-			unbindOnFailureToSyncWrites()
-		}
-	}, [sessionPending, sessionData, triplit])
+	useEffect(
+		() => setupTriplitAuth(triplit, authClient, options),
+		[triplit, authClient, options]
+	)
 }
