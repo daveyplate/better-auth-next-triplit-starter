@@ -13,17 +13,17 @@ import Todo from "./todo"
 import TodoSkeleton from "./todo-skeleton"
 
 function useTodos() {
-	const { data: sessionData } = useTriplitSession()
+	const { user } = useTriplitSession()
 	const todosQuery = triplit
 		.query("todos")
 		.Order("createdAt", "DESC")
-		.Where("userId", "=", sessionData?.user.id)
+		.Where("userId", "=", user?.id)
 
 	const {
 		results: todos,
 		error,
 		fetching
-	} = useConditionalQuery(triplit, sessionData && todosQuery)
+	} = useConditionalQuery(triplit, user && todosQuery)
 
 	return { todos, error, fetching }
 }
