@@ -4,7 +4,11 @@ import { triplit } from "@/triplit/client"
 import { useConditionalQueryOne } from "./use-conditional-query"
 
 export function useTriplitSession() {
-	const { data: sessionData, error: sessionError } = authClient.useSession()
+	const {
+		data: sessionData,
+		isPending: sessionPending,
+		error: sessionError
+	} = authClient.useSession()
 	const { result: user, error: userError } = useConditionalQueryOne(
 		triplit,
 		sessionData && triplit.query("users").Where("id", "=", sessionData?.user.id)
@@ -15,6 +19,8 @@ export function useTriplitSession() {
 			return { data: null, user: null, isPending: false, error: sessionError }
 		if (userError)
 			return { data: null, user: null, isPending: false, error: userError }
+		if (!sessionData && !sessionPending)
+			return { data: null, user: null, isPending: false, error: null }
 		if (!user || !sessionData)
 			return { data: null, user: null, isPending: true, error: null }
 
@@ -27,7 +33,7 @@ export function useTriplitSession() {
 			isPending: false,
 			error: null
 		}
-	}, [sessionData, user, sessionError, userError])
+	}, [sessionData, user, sessionError, userError, sessionPending])
 
 	return result
 }
