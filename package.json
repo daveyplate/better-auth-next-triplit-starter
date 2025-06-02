@@ -47,7 +47,7 @@
 		"tailwindcss": "^4.1.8",
 		"tailwindcss-safe-area": "^0.6.0",
 		"turbo": "^2.5.4",
-		"tw-animate-css": "^1.3.2",
+		"tw-animate-css": "^1.3.3",
 		"typescript": "^5.8.3"
 	},
 	"pnpm": {},
