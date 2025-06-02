@@ -13,14 +13,12 @@ import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useMetaTheme } from "@/hooks/use-meta-theme"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { useTriplitSession } from "@/hooks/use-triplit-session"
-import { useTriplitToken } from "@/hooks/use-triplit-token"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
 	useMetaTheme()
 	useTriplitAuth({ triplit, authClient })
-	const { token } = useTriplitToken()
 	const router = useRouter()
 
 	const { data: sessionData } = useTriplitSession()
@@ -46,7 +44,8 @@ export function Providers({ children }: { children: ReactNode }) {
 							error
 						} = useConditionalQuery(
 							triplit,
-							token && triplit.query("sessions").Where("userId", "=", userId)
+							sessionData &&
+								triplit.query("sessions").Where("userId", "=", userId)
 						)
 
 						return { data, isPending, error }
@@ -58,7 +57,8 @@ export function Providers({ children }: { children: ReactNode }) {
 							error
 						} = useConditionalQuery(
 							triplit,
-							token && triplit.query("accounts").Where("userId", "=", userId)
+							sessionData &&
+								triplit.query("accounts").Where("userId", "=", userId)
 						)
 
 						const data = useMemo(() => {
