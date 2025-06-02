@@ -17,8 +17,10 @@ TRIPLIT_SCHEMA_PATH="src/triplit/schema.ts"
 
 EXTERNAL_JWT_SECRET=$BETTER_AUTH_SECRET
 NEXT_PUBLIC_TRIPLIT_DB_URL=$TRIPLIT_DB_URL
-NEXT_PUBLIC_TRIPLIT_ANON_TOKEN=$TRIPLIT_ANON_TOKEN
+// NEXT_PUBLIC_TRIPLIT_ANON_TOKEN=$TRIPLIT_ANON_TOKEN
 ```
+
+`NEXT_PUBLIC_TRIPLIT_ANON_TOKEN` is optional and should only be set if you have offline data for guests with anonymous permissions.
 
 **Note:** Set a custom DB name in `src/triplit/client.ts`, it can lead to conflicts if you are developing multiple projects.
 
