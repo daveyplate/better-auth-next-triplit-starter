@@ -51,6 +51,11 @@ export function initTriplitAuth(
 			return
 		}
 
+		if (triplit.token) {
+			await triplit.endSession()
+			await new Promise((resolve) => setTimeout(resolve, 100))
+		}
+
 		try {
 			await triplit.startSession(token)
 		} catch (error) {
