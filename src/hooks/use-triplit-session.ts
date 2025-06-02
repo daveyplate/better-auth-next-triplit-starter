@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 import { useConditionalQueryOne } from "./use-conditional-query"
@@ -18,6 +18,11 @@ export function useTriplitSession() {
 			onRemoteFulfilled: () => setOnRemoteFulfilled(sessionData?.user.id)
 		}
 	)
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: ignore
+	useEffect(() => {
+		setOnRemoteFulfilled(undefined)
+	}, [sessionData?.user.id])
 
 	const result = useMemo(() => {
 		if (!sessionData && !sessionPending)
