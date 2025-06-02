@@ -13,16 +13,21 @@ type JSONWebToken = {
 export function useTriplitToken() {
     const [connectionOptions, setConnectionOptions] =
         useState<ConnectionOptionsChange>()
+    const [isReady, setIsReady] = useState(!triplit.awaitReady)
+
+    useEffect(() => {
+        triplit.awaitReady?.then(() => setIsReady(true))
+    }, [])
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     const token = useMemo(
         () =>
-            triplit.token
+            isReady && triplit.token
                 ? (JSON.parse(
                       JSON.stringify(triplit.vars.$token)
                   ) as JSONWebToken)
                 : null,
-        [connectionOptions]
+        [connectionOptions, isReady]
     )
 
     useEffect(
