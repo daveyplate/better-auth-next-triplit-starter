@@ -60,6 +60,18 @@ export function subscribePersistSession(authClient: AnyAuthClient) {
 		}
 	)
 
+	const checkActiveSession = () => {
+		const persistentSession = $persistentSession.get()
+		if (persistentSession.optimistic && persistentSession.data) {
+			// biome-ignore lint/suspicious/noExplicitAny: ignore
+			;(authClient as any).multiSession.setActive({
+				sessionToken: persistentSession.data.session.token
+			})
+		}
+	}
+
+	window.addEventListener("online", checkActiveSession)
+
 	return () => {
 		unbindSessionListener()
 		unbindPersistentSessionListener()
