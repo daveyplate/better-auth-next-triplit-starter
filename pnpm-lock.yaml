@@ -16,7 +16,7 @@ importers:
         version: 0.1.2(@triplit/client@1.0.40(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.9-beta.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
         specifier: ^1.7.4
-        version: 1.7.4(570fbd0124a8fea83bf594e425e42192)
+        version: 1.7.4(2382cf973c363dbf476a273c24c5f6b9)
       '@nanostores/persistent':
         specifier: ^1.0.0
         version: 1.0.0(nanostores@1.0.1)
@@ -72,8 +72,8 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
       sonner:
-        specifier: ^2.0.4
-        version: 2.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^2.0.5
+        version: 2.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       superjson:
         specifier: ^2.2.2
         version: 2.2.2
@@ -2464,8 +2464,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.5.161:
-    resolution: {integrity: sha512-hwtetwfKNZo/UlwHIVBlKZVdy7o8bIZxxKs0Mv/ROPiQQQmDgdm5a+KvKtBsxM8ZjFzTaCeLoodZ8jiBE3o9rA==}
+  electron-to-chromium@1.5.162:
+    resolution: {integrity: sha512-hQA+Zb5QQwoSaXJWEAGEw1zhk//O7qDzib05Z4qTqZfNju/FAkrm5ZInp0JbTp4Z18A6bilopdZWEYrFSsfllA==}
 
   elen@1.0.10:
     resolution: {integrity: sha512-ZL799/V/kzxYJ6Wlfktreq6qQWfGc3VkGUQJW5lZQ8/MhsQiKTAwERPfhEwIsV2movRGe2DfV7H2MjRw76Z7Wg==}
@@ -3253,8 +3253,8 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  sonner@2.0.4:
-    resolution: {integrity: sha512-fUOGFwhM9/t05VqjKeDv0+t6QZPByMkbFFs6IFsgRQKCBh/1d3HUAC5sYy80Q05+vDKdwSOG/zUPBc8PPpbDjw==}
+  sonner@2.0.5:
+    resolution: {integrity: sha512-YwbHQO6cSso3HBXlbCkgrgzDNIhws14r4MO87Ofy+cV2X7ES4pOoAK3+veSmVTvqNx1BWUxlhPmZzP00Crk2aQ==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
@@ -3522,8 +3522,8 @@ packages:
   zod@3.24.3:
     resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
 
-  zod@3.25.47:
-    resolution: {integrity: sha512-+f8+agSYoT9niC0VUL60IuXnr81FJeJ27Lf5YPrmcxTWmygcpGBeEuAAovDDEjkyQ36KyqNswwbhISZ1Z7yY+A==}
+  zod@3.25.48:
+    resolution: {integrity: sha512-0X1mz8FtgEIvaxGjdIImYpZEaZMrund9pGXm3M6vM7Reba0e2eI71KPjSCGXBfwKDPwPoywf6waUKc3/tFvX2Q==}
 
 snapshots:
 
@@ -3785,7 +3785,7 @@ snapshots:
       semver: 7.7.2
       tinyexec: 0.3.2
       yocto-spinner: 0.1.2
-      zod: 3.25.47
+      zod: 3.25.48
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@babel/core'
@@ -3945,7 +3945,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.7.4(570fbd0124a8fea83bf594e425e42192)':
+  '@daveyplate/better-auth-ui@1.7.4(2382cf973c363dbf476a273c24c5f6b9)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.79.0)(@tanstack/react-query@5.79.0(react@19.1.0))(better-auth@1.2.9-beta.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3981,11 +3981,11 @@ snapshots:
       react-google-recaptcha: 3.1.0(react@19.1.0)
       react-hook-form: 7.56.0(react@19.1.0)
       react-qr-code: 2.0.15(react@19.1.0)
-      sonner: 2.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      sonner: 2.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge: 3.3.0
       tailwindcss: 4.1.8
       ua-parser-js: 2.0.3
-      zod: 3.25.47
+      zod: 3.25.48
 
   '@emnapi/runtime@1.4.3':
     dependencies:
@@ -5421,7 +5421,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.47
+      zod: 3.25.48
 
   better-auth@1.2.9-beta.8:
     dependencies:
@@ -5436,7 +5436,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.47
+      zod: 3.25.48
 
   better-call@1.0.9:
     dependencies:
@@ -5467,7 +5467,7 @@ snapshots:
   browserslist@4.25.0:
     dependencies:
       caniuse-lite: 1.0.30001720
-      electron-to-chromium: 1.5.161
+      electron-to-chromium: 1.5.162
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.0)
 
@@ -5648,7 +5648,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.161: {}
+  electron-to-chromium@1.5.162: {}
 
   elen@1.0.10: {}
 
@@ -6448,7 +6448,7 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  sonner@2.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  sonner@2.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -6694,4 +6694,4 @@ snapshots:
 
   zod@3.24.3: {}
 
-  zod@3.25.47: {}
+  zod@3.25.48: {}
