@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: Flexible */
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: Flexible */
 
-import { usePersistSession } from "@daveyplate/better-auth-persistent"
+import { subscribePersistSession } from "@daveyplate/better-auth-persistent"
 import type { TriplitClient } from "@triplit/client"
 import { useEffect } from "react"
 import { toast } from "sonner"
@@ -13,11 +13,12 @@ interface UseTriplitAuthOptions {
 }
 
 export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
-	usePersistSession(authClient)
 	const { data: sessionData, isPending: sessionPending } =
 		authClient.useSession()
 
 	useEffect(() => {
+		const unbindPersistSession = subscribePersistSession(authClient)
+
 		const startSession = async () => {
 			if (sessionPending) return
 
@@ -51,6 +52,7 @@ export function useTriplitAuth({ triplit, authClient }: UseTriplitAuthOptions) {
 		)
 
 		return () => {
+			unbindPersistSession()
 			unbindOnSessionError()
 			unbindOnFailureToSyncWrites()
 		}
