@@ -46,6 +46,7 @@ export function initTriplitAuth(
 			return
 		}
 
+		// Hack to fix switching session showing loaders correctly
 		if (triplit.token) {
 			if (triplit.connectionStatus === "OPEN") {
 				await triplit.endSession()
