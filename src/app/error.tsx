@@ -16,7 +16,7 @@ export default function ErrorPage({
 	}, [error])
 
 	return (
-		<main className="flex grow flex-col items-center justify-center gap-12">
+		<main className="flex grow flex-col items-center justify-center gap-8">
 			<h2 className="font-bold text-2xl">Something went wrong!</h2>
 
 			<Button onClick={() => reset()}>Try again</Button>

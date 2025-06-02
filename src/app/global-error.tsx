@@ -18,7 +18,7 @@ export default function GlobalError({
 	return (
 		// global-error must include html and body tags
 		<html lang="en">
-			<body className="flex min-h-svh flex-col items-center justify-center gap-12">
+			<body className="flex min-h-svh flex-col items-center justify-center gap-8">
 				<h2 className="font-bold text-2xl">Something went wrong!</h2>
 
 				<Button onClick={() => reset()}>Try again</Button>
