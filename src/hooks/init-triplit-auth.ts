@@ -47,7 +47,11 @@ export function initTriplitAuth(
             // biome-ignore lint/suspicious/noExplicitAny: ignore
             triplit.vars.$token.role === (sessionData.user as any).role
         ) {
-            await triplit.updateSessionToken(token)
+            try {
+                await triplit.updateSessionToken(token)
+            } catch (error) {
+                console.error(error)
+            }
             return
         }
 
@@ -61,7 +65,11 @@ export function initTriplitAuth(
 
         // Clear local DB when we sign out
         if (!sessionData) {
-            await triplit.clear()
+            try {
+                await triplit.clear()
+            } catch (error) {
+                console.error(error)
+            }
         }
 
         try {
