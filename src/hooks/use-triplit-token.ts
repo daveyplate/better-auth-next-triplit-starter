@@ -33,6 +33,7 @@ export function useTriplitToken() {
     useEffect(
         () =>
             triplit.onConnectionOptionsChange((options) => {
+                // Hack: setTimeout to fix probablyIntendsToConnect race condition
                 setTimeout(() => setConnectionOptions(options))
             }),
         []
