@@ -1,9 +1,10 @@
 "use client"
 
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
-import { type FormEvent, useState } from "react"
+import type { ConnectionOptionsChange } from "@triplit/client"
+import { useConnectionStatus } from "@triplit/react"
+import { type FormEvent, useEffect, useState } from "react"
 import { toast } from "sonner"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
@@ -13,6 +14,8 @@ import Todo from "./todo"
 import TodoSkeleton from "./todo-skeleton"
 
 function useTodos() {
+    useConnectionStatus(triplit)
+    const [_, setConnectionOptions] = useState<ConnectionOptionsChange>()
     const { data: sessionData } = authClient.useSession()
     const userId = sessionData?.user?.id
     const todosQuery = triplit
@@ -20,11 +23,26 @@ function useTodos() {
         .Order("createdAt", "DESC")
         .Where("userId", "=", userId)
 
+    useEffect(
+        () =>
+            triplit.onConnectionOptionsChange((options) => {
+                setConnectionOptions(options)
+            }),
+        []
+    )
+
     const {
         results: todos,
         error,
         fetching
     } = useConditionalQuery(triplit, userId && todosQuery)
+
+    console.log({
+        userId: !!userId,
+        fetching,
+        token: triplit.token,
+        connectionStatus: triplit.connectionStatus
+    })
 
     return { todos, error, fetching }
 }
