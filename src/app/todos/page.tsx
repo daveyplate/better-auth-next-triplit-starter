@@ -26,7 +26,7 @@ function useTodos() {
         fetching
     } = useConditionalQuery(
         triplit,
-        userId === triplit.decodedToken?.sub && todosQuery
+        sessionData?.session.token === triplit.token && todosQuery
     )
 
     return { todos, error, fetching }
