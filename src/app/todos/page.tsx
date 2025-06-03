@@ -34,7 +34,7 @@ function useTodos() {
 
 export default function TodosPage() {
     useAuthenticate()
-    const { data: sessionData, isPending } = authClient.useSession()
+    const { data: sessionData } = authClient.useSession()
 
     const { todos, fetching } = useTodos()
     const [text, setText] = useState("")
@@ -60,11 +60,11 @@ export default function TodosPage() {
                     type="text"
                     placeholder="What needs to be done?"
                     value={text}
-                    disabled={isPending}
+                    disabled={!sessionData}
                     onChange={(e) => setText(e.target.value)}
                 />
 
-                <Button type="submit" disabled={isPending}>
+                <Button type="submit" disabled={!sessionData}>
                     Add Todo
                 </Button>
             </form>
