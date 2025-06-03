@@ -1,10 +1,9 @@
 "use client"
 
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
-import type { ConnectionOptionsChange } from "@triplit/client"
-import { useConnectionStatus } from "@triplit/react"
-import { type FormEvent, useEffect, useState } from "react"
+import { type FormEvent, useState } from "react"
 import { toast } from "sonner"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
@@ -14,8 +13,6 @@ import Todo from "./todo"
 import TodoSkeleton from "./todo-skeleton"
 
 function useTodos() {
-    useConnectionStatus(triplit)
-    const [_, setConnectionOptions] = useState<ConnectionOptionsChange>()
     const { data: sessionData } = authClient.useSession()
     const userId = sessionData?.user?.id
     const todosQuery = triplit
@@ -23,33 +20,21 @@ function useTodos() {
         .Order("createdAt", "DESC")
         .Where("userId", "=", userId)
 
-    useEffect(
-        () =>
-            triplit.onConnectionOptionsChange((options) => {
-                setConnectionOptions(options)
-            }),
-        []
-    )
-
     const {
         results: todos,
         error,
         fetching
-    } = useConditionalQuery(triplit, userId && todosQuery)
-
-    console.log({
-        userId: !!userId,
-        fetching,
-        token: triplit.token,
-        connectionStatus: triplit.connectionStatus
-    })
+    } = useConditionalQuery(
+        triplit,
+        userId === triplit.decodedToken?.sub && todosQuery
+    )
 
     return { todos, error, fetching }
 }
 
 export default function TodosPage() {
     useAuthenticate()
-    const { data: sessionData } = authClient.useSession()
+    const { data: sessionData, isPending } = authClient.useSession()
 
     const { todos, fetching } = useTodos()
     const [text, setText] = useState("")
@@ -75,11 +60,11 @@ export default function TodosPage() {
                     type="text"
                     placeholder="What needs to be done?"
                     value={text}
-                    disabled={fetching}
+                    disabled={isPending}
                     onChange={(e) => setText(e.target.value)}
                 />
 
-                <Button type="submit" disabled={fetching}>
+                <Button type="submit" disabled={isPending}>
                     Add Todo
                 </Button>
             </form>
