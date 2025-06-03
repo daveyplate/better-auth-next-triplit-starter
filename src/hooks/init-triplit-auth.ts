@@ -38,15 +38,16 @@ export function initTriplitAuth(
         if (!token) return
         if (triplit.token === token) return
 
+        await triplit.awaitReady
+
         // Update session token if it's the same user and role
         if (
             sessionData &&
-            !triplit.awaitReady &&
             triplit.vars.$token.sub === sessionData.user.id &&
             // biome-ignore lint/suspicious/noExplicitAny: ignore
             triplit.vars.$token.role === (sessionData.user as any).role
         ) {
-            triplit.updateSessionToken(token)
+            await triplit.updateSessionToken(token)
             return
         }
 

@@ -7,24 +7,24 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
-import { useTriplitToken } from "@/hooks/use-triplit-token"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 import TodoSkeleton from "./todo-skeleton"
 
 function useTodos() {
-    const token = useTriplitToken()
+    const { data: sessionData } = authClient.useSession()
+    const userId = sessionData?.user?.id
     const todosQuery = triplit
         .query("todos")
         .Order("createdAt", "DESC")
-        .Where("userId", "=", token?.sub)
+        .Where("userId", "=", userId)
 
     const {
         results: todos,
         error,
         fetching
-    } = useConditionalQuery(triplit, token?.sub && todosQuery)
+    } = useConditionalQuery(triplit, userId && todosQuery)
 
     return { todos, error, fetching }
 }
