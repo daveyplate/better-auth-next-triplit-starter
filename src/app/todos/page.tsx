@@ -13,7 +13,8 @@ import Todo from "./todo"
 import TodoSkeleton from "./todo-skeleton"
 
 function useTodos() {
-    const { data: sessionData } = authClient.useSession()
+    // useAuthenticate is a wrapper for useSession that redirects to sign in
+    const { data: sessionData } = useAuthenticate()
     const userId = sessionData?.user?.id
     const todosQuery = triplit
         .query("todos")
@@ -24,16 +25,12 @@ function useTodos() {
         results: todos,
         error,
         fetching
-    } = useConditionalQuery(
-        triplit,
-        sessionData?.session.token === triplit.token && todosQuery
-    )
+    } = useConditionalQuery(triplit, userId && todosQuery)
 
     return { todos, error, fetching }
 }
 
 export default function TodosPage() {
-    useAuthenticate()
     const { data: sessionData } = authClient.useSession()
 
     const { todos, fetching } = useTodos()
