@@ -33,7 +33,11 @@ export const schema = S.Collections({
                     filter: [isUid]
                 },
                 postUpdate: {
-                    filter: [isUid]
+                    filter: [
+                        isUid,
+                        ["updatedAt", ">", "$prev.updatedAt"],
+                        ["createdAt", "=", "$prev.createdAt"]
+                    ]
                 },
                 delete: {
                     filter: [isUid]

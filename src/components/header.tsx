@@ -25,7 +25,7 @@ export function Header() {
                         />
                     </svg>
 
-                    <span className="hidden md:block">
+                    <span className="hidden sm:block">
                         BETTER-AUTH. STARTER
                     </span>
                 </Link>
