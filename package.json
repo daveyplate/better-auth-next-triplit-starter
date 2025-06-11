@@ -52,5 +52,5 @@
         "typescript": "^5.8.3"
     },
     "pnpm": {},
-    "packageManager": "pnpm@10.11.1"
+    "packageManager": "pnpm@10.12.1"
 }
