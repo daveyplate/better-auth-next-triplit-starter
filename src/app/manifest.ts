@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: "Better Auth Triplit Next.js Starter",
+        name: "Better Auth Next.js Triplit Starter",
         short_name: "Triplit Starter",
         icons: [
             {

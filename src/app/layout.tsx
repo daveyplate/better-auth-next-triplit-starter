@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-    title: "Better Auth Triplit Next.js Starter",
+    title: "Better Auth Next.js Triplit Starter",
     description: "Better Auth Next.js Starter with Triplit & shadcn/ui"
 }
 
