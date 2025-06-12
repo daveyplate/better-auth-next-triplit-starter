@@ -12,5 +12,13 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
+    user: {
+        additionalFields: {
+            theme: {
+                type: "string",
+                required: false
+            }
+        }
+    },
     plugins: [multiSession()]
 })

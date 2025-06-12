@@ -8,6 +8,7 @@ export const authSchema = S.Collections({
             email: S.String(),
             emailVerified: S.Boolean({ default: false }),
             image: S.Optional(S.String()),
+            theme: S.Optional(S.String()),
             createdAt: S.Date({ default: S.Default.now() }),
             updatedAt: S.Date({ default: S.Default.now() })
         }),
