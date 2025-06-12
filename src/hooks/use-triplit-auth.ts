@@ -1,4 +1,4 @@
-import type { TriplitClient } from "@triplit/client"
+import type { Models, TriplitClient } from "@triplit/client"
 import { useEffect } from "react"
 import type { AnyAuthClient } from "@/types/any-auth-client"
 
@@ -7,9 +7,8 @@ import {
     initTriplitAuth
 } from "./init-triplit-auth"
 
-export function useTriplitAuth(
-    // biome-ignore lint/suspicious/noExplicitAny: Allow any TriplitClient
-    triplit: TriplitClient<any>,
+export function useTriplitAuth<M extends Models<M>>(
+    triplit: TriplitClient<M>,
     authClient: AnyAuthClient,
     options?: InitTriplitAuthOptions
 ) {

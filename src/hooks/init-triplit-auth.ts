@@ -1,5 +1,5 @@
 import { subscribePersistSession } from "@daveyplate/better-auth-persistent"
-import type { SessionError, TriplitClient } from "@triplit/client"
+import type { Models, SessionError, TriplitClient } from "@triplit/client"
 import type { Session, User } from "better-auth"
 import type { AnyAuthClient } from "@/types/any-auth-client"
 
@@ -15,9 +15,8 @@ export type InitTriplitAuthOptions = {
     onSessionError?: (error: SessionError) => void
 }
 
-export function initTriplitAuth(
-    // biome-ignore lint/suspicious/noExplicitAny: ignore
-    triplit: TriplitClient<any>,
+export function initTriplitAuth<M extends Models<M>>(
+    triplit: TriplitClient<M>,
     authClient: AnyAuthClient,
     {
         anonToken,
@@ -42,8 +41,8 @@ export function initTriplitAuth(
         if (
             sessionData &&
             triplit.decodedToken?.sub === sessionData.user.id &&
-            // biome-ignore lint/suspicious/noExplicitAny: ignore
-            triplit.decodedToken?.role === (sessionData.user as any).role
+            triplit.decodedToken?.role ===
+                (sessionData.user as Record<string, unknown>).role
         ) {
             try {
                 await triplit.updateSessionToken(token)

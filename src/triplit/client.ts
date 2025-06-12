@@ -1,4 +1,5 @@
 import { TriplitClient } from "@triplit/client"
+import { isServer } from "@/lib/utils"
 import { schema } from "./schema"
 
 export const triplit = new TriplitClient({
@@ -6,7 +7,7 @@ export const triplit = new TriplitClient({
     serverUrl: process.env.NEXT_PUBLIC_TRIPLIT_DB_URL,
     storage: {
         name: "better-auth-starter",
-        type: typeof window !== "undefined" ? "indexeddb" : "memory"
+        type: isServer ? "memory" : "indexeddb"
     },
     autoConnect: false
 })
