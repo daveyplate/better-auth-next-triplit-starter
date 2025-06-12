@@ -66,6 +66,7 @@ export function initTriplitAuth(
         // Clear local DB when we sign out
         if (!sessionData) {
             try {
+                console.log("triplit.clear")
                 await triplit.clear()
             } catch (error) {
                 console.error(error)
@@ -81,7 +82,8 @@ export function initTriplitAuth(
     }
 
     const unbindOnSessionChange = authClient.$store.atoms.session.subscribe(
-        (result) => !result.isPending && startSession(result.data)
+        (result) =>
+            !result.error && !result.isPending && startSession(result.data)
     )
 
     const unbindOnSessionError = triplit.onSessionError((error) => {
