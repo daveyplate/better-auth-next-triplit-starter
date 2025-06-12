@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useTriplitSession } from "@/hooks/use-triplit-session"
 import { triplit } from "@/triplit/client"
 
-export function SyncTheme() {
+export function ThemeSync() {
     const { theme, setTheme } = useTheme()
     const { data: sessionData, isPending } = useTriplitSession()
     const user = sessionData?.user

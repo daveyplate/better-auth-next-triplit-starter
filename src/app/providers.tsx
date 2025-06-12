@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
-import { SyncTheme } from "@/components/sync-theme"
+import { ThemeSync } from "@/components/theme-sync"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useMetaTheme } from "@/hooks/use-meta-theme"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
@@ -108,7 +108,7 @@ export function Providers({ children }: { children: ReactNode }) {
             >
                 {children}
 
-                <SyncTheme />
+                <ThemeSync />
                 <Toaster />
             </AuthUIProvider>
         </ThemeProvider>

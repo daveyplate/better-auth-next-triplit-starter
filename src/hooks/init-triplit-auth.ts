@@ -30,7 +30,6 @@ export function initTriplitAuth(
         : undefined
 
     const startSession = async (sessionData: SessionData | null) => {
-        console.log("startSession")
         const token =
             sessionData?.session.token ||
             anonToken ||
@@ -42,10 +41,9 @@ export function initTriplitAuth(
         // Update session token if it's the same user and role
         if (
             sessionData &&
-            !triplit.awaitReady &&
-            triplit.vars.$token.sub === sessionData.user.id &&
+            triplit.decodedToken?.sub === sessionData.user.id &&
             // biome-ignore lint/suspicious/noExplicitAny: ignore
-            triplit.vars.$token.role === (sessionData.user as any).role
+            triplit.decodedToken?.role === (sessionData.user as any).role
         ) {
             try {
                 await triplit.updateSessionToken(token)
@@ -55,18 +53,9 @@ export function initTriplitAuth(
             return
         }
 
-        // Hack to fix switching session showing loaders correctly
-        // if (triplit.token) {
-        //     if (triplit.connectionStatus === "OPEN") {
-        //         await triplit.endSession()
-        //         await new Promise((resolve) => setTimeout(resolve, 100))
-        //     }
-        // }
-
         // Clear local DB when we sign out
         if (!sessionData) {
             try {
-                console.log("triplit.clear")
                 await triplit.clear()
             } catch (error) {
                 console.error(error)
@@ -74,7 +63,6 @@ export function initTriplitAuth(
         }
 
         try {
-            console.log("triplit.startSession")
             await triplit.startSession(token)
         } catch (error) {
             console.error(error)
