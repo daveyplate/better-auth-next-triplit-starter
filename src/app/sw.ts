@@ -45,22 +45,22 @@ const serwist = new Serwist({
     }
 })
 
-// const urlsToPrecache = [
-//     "/",
-//     "/todos",
-//     "/auth/sign-in",
-//     "/auth/sign-up",
-//     "/auth/settings"
-// ] as const
+const urlsToPrecache = [
+    "/",
+    "/todos",
+    "/auth/sign-in",
+    "/auth/sign-up",
+    "/auth/settings"
+]
 
-// self.addEventListener("install", (event) => {
-//     const requestPromises = Promise.all(
-//         urlsToPrecache.map((entry) => {
-//             return serwist.handleRequest({ request: new Request(entry), event })
-//         })
-//     )
+self.addEventListener("install", (event) => {
+    const requestPromises = Promise.all(
+        urlsToPrecache.map((entry) => {
+            return serwist.handleRequest({ request: new Request(entry), event })
+        })
+    )
 
-//     event.waitUntil(requestPromises)
-// })
+    event.waitUntil(requestPromises)
+})
 
 serwist.addEventListeners()
