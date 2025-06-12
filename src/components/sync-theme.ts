@@ -1,17 +1,12 @@
 import { useTheme } from "next-themes"
 import { useEffect } from "react"
-import { useConditionalQueryOne } from "@/hooks/use-conditional-query"
 import { useTriplitSession } from "@/hooks/use-triplit-session"
 import { triplit } from "@/triplit/client"
 
 export function SyncTheme() {
-    const { data: sessionData } = useTriplitSession()
-    const { result: user, fetching } = useConditionalQueryOne(
-        triplit,
-        sessionData &&
-            triplit.query("users").Where(["id", "=", sessionData?.user.id])
-    )
     const { theme, setTheme } = useTheme()
+    const { data: sessionData, isPending } = useTriplitSession()
+    const user = sessionData?.user
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     useEffect(() => {
@@ -28,7 +23,7 @@ export function SyncTheme() {
         }
 
         setTheme(user.theme)
-    }, [fetching, user?.theme])
+    }, [isPending, user?.theme])
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore
     useEffect(() => {
