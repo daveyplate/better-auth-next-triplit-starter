@@ -37,7 +37,8 @@
                 },
                 "useTemplate": {
                     "fix": "safe",
-                    "level": "info"
+                    "level": "info",
+                    "options": {}
                 }
             },
             "nursery": {
