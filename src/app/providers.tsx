@@ -10,16 +10,15 @@ import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
+import { MetaTheme } from "@/components/meta-theme"
 import { ThemeSync } from "@/components/theme-sync"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
-import { useMetaTheme } from "@/hooks/use-meta-theme"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { useTriplitSession } from "@/hooks/use-triplit-session"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
-    useMetaTheme()
     useTriplitAuth(triplit, authClient)
     const router = useRouter()
 
@@ -108,6 +107,7 @@ export function Providers({ children }: { children: ReactNode }) {
             >
                 {children}
 
+                <MetaTheme />
                 <ThemeSync />
                 <Toaster />
             </AuthUIProvider>

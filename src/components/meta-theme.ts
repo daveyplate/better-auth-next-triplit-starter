@@ -1,8 +1,9 @@
 import { useEffect } from "react"
 
-export function useMetaTheme() {
+export function MetaTheme() {
     useEffect(() => {
         const updateThemeColor = () => {
+            console.log("updateThemeColor")
             const bgColor = window.getComputedStyle(
                 document.body
             ).backgroundColor
@@ -16,12 +17,11 @@ export function useMetaTheme() {
 
         observer.observe(document.documentElement, {
             attributes: true,
-            attributeFilter: ["style", "class"],
-            subtree: false
+            attributeFilter: ["class"]
         })
-
-        updateThemeColor()
 
         return () => observer.disconnect()
     }, [])
+
+    return null
 }
