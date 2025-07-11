@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@daveyplate/better-auth-persistent':
-        specifier: ^0.0.2
-        version: 0.0.2(@better-fetch/fetch@1.1.18)(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^0.0.3
+        version: 0.0.3(@better-fetch/fetch@1.1.18)(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-triplit':
         specifier: ^0.1.2
         version: 0.1.2(@triplit/client@1.0.46(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -431,8 +431,8 @@ packages:
   '@clack/prompts@0.10.1':
     resolution: {integrity: sha512-Q0T02vx8ZM9XSv9/Yde0jTmmBQufZhPJfYAg2XrrrxWWaZgq1rr8nU8Hv710BQ1dhoP8rtY7YUdpGej2Qza/cw==}
 
-  '@daveyplate/better-auth-persistent@0.0.2':
-    resolution: {integrity: sha512-ylPrgUSuHh9UR5y64bkjBSJqKyziE6Zta/c1ySylpVIDt39U7lztgohro3qLPVzDGIDwIwaBU/msAqpqRii6Cw==}
+  '@daveyplate/better-auth-persistent@0.0.3':
+    resolution: {integrity: sha512-PNJLBj6um+uaW33DyygoOnJUtzd5QuwwtAd3Ebg462YbvzUmUIZ/gFpvnzb/uPNqA+dl3RIHIi5exPfj29f/lA==}
     peerDependencies:
       '@better-fetch/fetch': '>=1.1.18'
       better-auth: '>=1.2.8'
@@ -3902,7 +3902,7 @@ snapshots:
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
-  '@daveyplate/better-auth-persistent@0.0.2(@better-fetch/fetch@1.1.18)(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-persistent@0.0.3(@better-fetch/fetch@1.1.18)(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@biomejs/biome': 1.9.4

@@ -62,6 +62,7 @@ export function initTriplitAuth<M extends Models<M>>(
         }
 
         try {
+            triplit.disconnect()
             await triplit.startSession(token)
         } catch (error) {
             console.error(error)
