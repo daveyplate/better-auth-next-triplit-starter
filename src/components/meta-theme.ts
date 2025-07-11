@@ -3,13 +3,14 @@ import { useEffect } from "react"
 export function MetaTheme() {
     useEffect(() => {
         const updateThemeColor = () => {
-            console.log("updateThemeColor")
             const bgColor = window.getComputedStyle(
                 document.body
             ).backgroundColor
+
             const metaThemeColor = document.querySelector(
                 "meta[name=theme-color]"
             )
+
             metaThemeColor?.setAttribute("content", bgColor)
         }
 
