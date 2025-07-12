@@ -4,16 +4,13 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@daveyplate/better-auth-persistent': file:../better-auth-persistent
-
 importers:
 
   .:
     dependencies:
       '@daveyplate/better-auth-persistent':
-        specifier: file:../better-auth-persistent
-        version: file:../better-auth-persistent(@better-fetch/fetch@1.1.18)(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^0.0.4
+        version: 0.0.4(@better-fetch/fetch@1.1.18)(@nanostores/react@1.0.0(nanostores@1.0.1)(react@19.1.0))(better-auth@1.2.12)(nanostores@1.0.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-triplit':
         specifier: ^0.1.2
         version: 0.1.2(@triplit/client@1.0.46(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -381,11 +378,13 @@ packages:
   '@clack/prompts@0.10.1':
     resolution: {integrity: sha512-Q0T02vx8ZM9XSv9/Yde0jTmmBQufZhPJfYAg2XrrrxWWaZgq1rr8nU8Hv710BQ1dhoP8rtY7YUdpGej2Qza/cw==}
 
-  '@daveyplate/better-auth-persistent@file:../better-auth-persistent':
-    resolution: {directory: ../better-auth-persistent, type: directory}
+  '@daveyplate/better-auth-persistent@0.0.4':
+    resolution: {integrity: sha512-U/jrlW2PEmT21W1DPwme/5OKchbKqgoE1KG6W22Hn0J/93PIUsXrOQ+1Xi2DEM32o7jPspe1yClpV1+L/SZ8bw==}
     peerDependencies:
       '@better-fetch/fetch': '>=1.1.18'
+      '@nanostores/react': '>=1.0.0'
       better-auth: '>=1.2.8'
+      nanostores: '>=1.0.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
@@ -3821,10 +3820,9 @@ snapshots:
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
-  '@daveyplate/better-auth-persistent@file:../better-auth-persistent(@better-fetch/fetch@1.1.18)(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-persistent@0.0.4(@better-fetch/fetch@1.1.18)(@nanostores/react@1.0.0(nanostores@1.0.1)(react@19.1.0))(better-auth@1.2.12)(nanostores@1.0.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
-      '@biomejs/biome': 2.1.1
       '@nanostores/persistent': 1.1.0(nanostores@1.0.1)
       '@nanostores/react': 1.0.0(nanostores@1.0.1)(react@19.1.0)
       better-auth: 1.2.12

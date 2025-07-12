@@ -10,7 +10,7 @@
         "check-types": "tsc --noEmit"
     },
     "dependencies": {
-        "@daveyplate/better-auth-persistent": "^0.0.3",
+        "@daveyplate/better-auth-persistent": "^0.0.4",
         "@daveyplate/better-auth-triplit": "^0.1.2",
         "@daveyplate/better-auth-ui": "^2.0.12",
         "@radix-ui/react-checkbox": "^1.3.2",
@@ -52,9 +52,7 @@
         "typescript": "^5.8.3"
     },
     "pnpm": {
-        "overrides": {
-            "@daveyplate/better-auth-persistent": "file:../better-auth-persistent"
-        }
+        "overrides": {}
     },
     "packageManager": "pnpm@10.13.1"
 }
