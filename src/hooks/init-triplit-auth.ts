@@ -1,7 +1,5 @@
-import { subscribePersistSession } from "@daveyplate/better-auth-persistent"
 import type { Models, SessionError, TriplitClient } from "@triplit/client"
 import type { Session, User } from "better-auth"
-import type { AnyAuthClient } from "@/types/any-auth-client"
 
 type SessionData = {
     session: Session
@@ -10,25 +8,23 @@ type SessionData = {
 
 export type InitTriplitAuthOptions = {
     anonToken?: string
-    /** @default true */
-    persistent?: boolean
+    sessionData?: SessionData | null
+    isPending?: boolean
     onSessionError?: (error: SessionError) => void
 }
 
 export function initTriplitAuth<M extends Models<M>>(
     triplit: TriplitClient<M>,
-    authClient: AnyAuthClient,
     {
         anonToken,
-        persistent = true,
+        sessionData,
+        isPending,
         onSessionError
     }: InitTriplitAuthOptions = {}
 ) {
-    const unbindPersistSession = persistent
-        ? subscribePersistSession(authClient)
-        : undefined
+    if (isPending) return
 
-    const startSession = async (sessionData: SessionData | null) => {
+    const startSession = async (sessionData?: SessionData | null) => {
         const token =
             sessionData?.session.token ||
             anonToken ||
@@ -69,10 +65,7 @@ export function initTriplitAuth<M extends Models<M>>(
         }
     }
 
-    const unbindOnSessionChange = authClient.$store.atoms.session.subscribe(
-        (result) =>
-            !result.error && !result.isPending && startSession(result.data)
-    )
+    startSession(sessionData)
 
     const unbindOnSessionError = triplit.onSessionError((error) => {
         console.error(error)
@@ -87,8 +80,6 @@ export function initTriplitAuth<M extends Models<M>>(
     )
 
     return () => {
-        unbindPersistSession?.()
-        unbindOnSessionChange()
         unbindOnSessionError()
         unbindOnFailureToSyncWrites()
     }

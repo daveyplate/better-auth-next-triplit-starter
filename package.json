@@ -51,6 +51,10 @@
         "tw-animate-css": "^1.3.5",
         "typescript": "^5.8.3"
     },
-    "pnpm": {},
+    "pnpm": {
+        "overrides": {
+            "@daveyplate/better-auth-persistent": "file:../better-auth-persistent"
+        }
+    },
     "packageManager": "pnpm@10.13.1"
 }

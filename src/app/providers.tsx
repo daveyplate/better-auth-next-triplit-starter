@@ -2,7 +2,8 @@
 
 import {
     setActiveSession,
-    useListDeviceSessions
+    useListDeviceSessions,
+    useSubscribeDeviceSessions
 } from "@daveyplate/better-auth-persistent"
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
 import Link from "next/link"
@@ -19,11 +20,12 @@ import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
-    useTriplitAuth(triplit, authClient)
-    const router = useRouter()
-
+    useTriplitAuth(triplit)
+    useSubscribeDeviceSessions()
     const { data: sessionData } = useTriplitSession()
     const userId = sessionData?.user.id
+
+    const router = useRouter()
 
     return (
         <ThemeProvider
