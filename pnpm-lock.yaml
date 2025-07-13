@@ -12,8 +12,8 @@ importers:
         specifier: ^0.0.4
         version: 0.0.4(@better-fetch/fetch@1.1.18)(@nanostores/react@1.0.0(nanostores@1.0.1)(react@19.1.0))(better-auth@1.2.12)(nanostores@1.0.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-triplit':
-        specifier: ^0.1.2
-        version: 0.1.2(@triplit/client@1.0.46(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^0.2.0
+        version: 0.2.0(@triplit/client@1.0.46(better-sqlite3@11.10.0)(typescript@5.8.3))(@triplit/react@1.0.46(better-sqlite3@11.10.0)(react@19.1.0)(typescript@5.8.3))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.12
         version: 2.0.12(221a9064246b1611251e3eb9047a4abe)
@@ -397,10 +397,11 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@daveyplate/better-auth-triplit@0.1.2':
-    resolution: {integrity: sha512-COqUs/OS5IueCAEqmcEk9nCIKd6ia81loJenVCapMykrLKM6Nv4v2Wip+Ud+HWwGY7uw5R7/o44scrX84E78bA==}
+  '@daveyplate/better-auth-triplit@0.2.0':
+    resolution: {integrity: sha512-UqNw+aQIzQm2bTqiByH5H29cBMYrity4QGoegpyApxdrFutaQy3jgDIOKgeG72AXZjcc3e0mOBURQKXzzbaEWQ==}
     peerDependencies:
-      '@triplit/client': '>=1.0.0'
+      '@triplit/client': '>=1.0.46'
+      '@triplit/react': '>=1.0.46'
       better-auth: '>=1.0.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -3839,9 +3840,10 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-triplit@0.1.2(@triplit/client@1.0.46(better-sqlite3@11.10.0)(typescript@5.8.3))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-triplit@0.2.0(@triplit/client@1.0.46(better-sqlite3@11.10.0)(typescript@5.8.3))(@triplit/react@1.0.46(better-sqlite3@11.10.0)(react@19.1.0)(typescript@5.8.3))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@triplit/client': 1.0.46(better-sqlite3@11.10.0)(typescript@5.8.3)
+      '@triplit/react': 1.0.46(better-sqlite3@11.10.0)(react@19.1.0)(typescript@5.8.3)
       better-auth: 1.2.12
       jose: 6.0.11
       react: 19.1.0

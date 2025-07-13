@@ -5,6 +5,7 @@ import {
     useListDeviceSessions,
     useSubscribeDeviceSessions
 } from "@daveyplate/better-auth-persistent"
+import { useTriplitAuth } from "@daveyplate/better-auth-triplit"
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -16,14 +17,13 @@ import { MetaTheme } from "@/components/meta-theme"
 import { ThemeSync } from "@/components/theme-sync"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useSession } from "@/hooks/use-session"
-import { useTriplitAuth } from "@/hooks/use-triplit-auth"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
-    useTriplitAuth(triplit)
+    const { data: sessionData, isPending } = useSession()
+    useTriplitAuth(triplit, { sessionData, isPending })
     useSubscribeDeviceSessions()
-    const { data: sessionData } = useSession()
     const userId = sessionData?.user.id
 
     const router = useRouter()
