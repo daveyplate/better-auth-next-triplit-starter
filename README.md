@@ -1,4 +1,4 @@
-# Better Auth Next.js Triplit Starter (App Router)
+# Better Auth Next.js Triplit Starter
 
 ## Installation
 
@@ -6,7 +6,15 @@ First, create a Triplit Database or run triplit dev then configure your environm
 
 You can generate a `BETTER_AUTH_SECRET` [here](https://www.better-auth.com/docs/installation#set-environment-variables).
 
-If using Triplit Cloud, you must set `External JWT secret` to your `BETTER_AUTH_SECRET` in your project settings on the Triplit dashboard.
+On your production Triplit Server, you must set the `JWT_SECRET` environment variable to match your `BETTER_AUTH_SECRET`.
+
+To generate your production anon & service tokens, run the following script:
+
+```bash
+pnpm tsx generate-tokens.ts
+```
+
+It will use your `BETTER_AUTH_SECRET` from your .env file to sign these tokens using the HS256 algorithm.
 
 ```bash
 BETTER_AUTH_SECRET=""
