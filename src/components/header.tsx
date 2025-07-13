@@ -42,7 +42,7 @@ export function Header() {
 
             <div className="flex items-center gap-2">
                 <Link
-                    href="https://github.com/daveyplate/better-auth-nextjs-triplit-starter"
+                    href="https://github.com/daveyplate/better-auth-next-triplit-starter"
                     target="_blank"
                 >
                     <Button
