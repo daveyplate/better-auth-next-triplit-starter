@@ -1,11 +1,11 @@
 import { useTheme } from "next-themes"
 import { useEffect } from "react"
-import { useTriplitSession } from "@/hooks/use-triplit-session"
+import { useSession } from "@/hooks/use-session"
 import { triplit } from "@/triplit/client"
 
 export function ThemeSync() {
     const { theme, setTheme } = useTheme()
-    const { data: sessionData, isPending } = useTriplitSession()
+    const { data: sessionData, isPending } = useSession()
     const user = sessionData?.user
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: ignore

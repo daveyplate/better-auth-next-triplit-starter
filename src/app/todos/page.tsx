@@ -7,7 +7,7 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
-import { useTriplitSession } from "@/hooks/use-triplit-session"
+import { useSession } from "@/hooks/use-session"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 import TodoSkeleton from "./todo-skeleton"
@@ -31,7 +31,7 @@ function useTodos() {
 }
 
 export default function TodosPage() {
-    const { data: sessionData } = useTriplitSession()
+    const { data: sessionData } = useSession()
 
     const { todos, fetching } = useTodos()
     const [text, setText] = useState("")

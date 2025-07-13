@@ -11,18 +11,19 @@ import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
+
 import { MetaTheme } from "@/components/meta-theme"
 import { ThemeSync } from "@/components/theme-sync"
 import { useConditionalQuery } from "@/hooks/use-conditional-query"
+import { useSession } from "@/hooks/use-session"
 import { useTriplitAuth } from "@/hooks/use-triplit-auth"
-import { useTriplitSession } from "@/hooks/use-triplit-session"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
     useTriplitAuth(triplit)
     useSubscribeDeviceSessions()
-    const { data: sessionData } = useTriplitSession()
+    const { data: sessionData } = useSession()
     const userId = sessionData?.user.id
 
     const router = useRouter()
@@ -38,7 +39,7 @@ export function Providers({ children }: { children: ReactNode }) {
                 authClient={authClient}
                 multiSession
                 hooks={{
-                    useSession: useTriplitSession,
+                    useSession,
                     useListDeviceSessions,
                     useListSessions: () => {
                         const {

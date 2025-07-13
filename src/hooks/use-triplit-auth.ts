@@ -4,13 +4,13 @@ import {
     type InitTriplitAuthOptions,
     initTriplitAuth
 } from "./init-triplit-auth"
-import { useTriplitSession } from "./use-triplit-session"
+import { useSession } from "./use-session"
 
 export function useTriplitAuth<M extends Models<M>>(
     triplit: TriplitClient<M>,
     options?: InitTriplitAuthOptions
 ) {
-    const { data: sessionData, isPending } = useTriplitSession()
+    const { data: sessionData, isPending } = useSession()
 
     useEffect(
         () =>
