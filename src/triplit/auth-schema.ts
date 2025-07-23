@@ -218,12 +218,21 @@ export const authSchema = S.Collections({
             metadata: S.Optional(S.Json())
         }),
         relationships: {
-            user: S.RelationById("users", "$userId")
+            user: S.RelationById("users", "$userId"),
+            organization: S.RelationById(
+                "organizations",
+                "$metadata.organizationId"
+            )
         },
         permissions: {
             authenticated: {
                 read: {
-                    filter: [["userId", "=", "$token.sub"]]
+                    filter: [
+                        or([
+                            ["userId", "=", "$token.sub"],
+                            ["organization.members.userId", "=", "$token.sub"]
+                        ])
+                    ]
                 },
                 delete: {
                     filter: [["userId", "=", "$token.sub"]]
