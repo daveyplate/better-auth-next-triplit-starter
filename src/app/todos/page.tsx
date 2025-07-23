@@ -1,13 +1,13 @@
 "use client"
 
 import { useAuthenticate } from "@daveyplate/better-auth-ui"
+import { useQuery } from "@triplit/react"
 import { type FormEvent, useState } from "react"
 import { toast } from "sonner"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useSession } from "@/hooks/use-session"
+import { useToken } from "@/hooks/use-token"
 import { triplit } from "@/triplit/client"
 import Todo from "./todo"
 import TodoSkeleton from "./todo-skeleton"
@@ -15,6 +15,7 @@ import TodoSkeleton from "./todo-skeleton"
 function useTodos() {
     // useAuthenticate is a wrapper for useSession that redirects to sign in
     const { data: sessionData } = useAuthenticate()
+    const { token } = useToken(triplit)
     const userId = sessionData?.user?.id
     const todosQuery = triplit
         .query("todos")
@@ -25,7 +26,9 @@ function useTodos() {
         results: todos,
         error,
         fetching
-    } = useConditionalQuery(triplit, userId && todosQuery)
+    } = useQuery(triplit, todosQuery, {
+        enabled: !!token
+    })
 
     return { todos, error, fetching }
 }

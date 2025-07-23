@@ -7,6 +7,7 @@ import {
 } from "@daveyplate/better-auth-persistent"
 import { useTriplitAuth } from "@daveyplate/better-auth-triplit"
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
+import { useQuery } from "@triplit/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
@@ -15,13 +16,14 @@ import { Toaster } from "sonner"
 
 import { MetaTheme } from "@/components/meta-theme"
 import { ThemeSync } from "@/components/theme-sync"
-import { useConditionalQuery } from "@/hooks/use-conditional-query"
 import { useSession } from "@/hooks/use-session"
+import { useToken } from "@/hooks/use-token"
 import { authClient } from "@/lib/auth-client"
 import { triplit } from "@/triplit/client"
 
 export function Providers({ children }: { children: ReactNode }) {
     const { data: sessionData, isPending } = useSession()
+    const { token } = useToken(triplit)
     useTriplitAuth(triplit, { sessionData, isPending })
     useSubscribeDeviceSessions()
     const userId = sessionData?.user.id
@@ -46,12 +48,14 @@ export function Providers({ children }: { children: ReactNode }) {
                             results: data,
                             fetching: isPending,
                             error
-                        } = useConditionalQuery(
+                        } = useQuery(
                             triplit,
-                            sessionData &&
-                                triplit
-                                    .query("sessions")
-                                    .Where("userId", "=", userId)
+                            triplit
+                                .query("sessions")
+                                .Where("userId", "=", userId),
+                            {
+                                enabled: !!token
+                            }
                         )
 
                         return { data, isPending, error }
@@ -61,12 +65,14 @@ export function Providers({ children }: { children: ReactNode }) {
                             results,
                             fetching: isPending,
                             error
-                        } = useConditionalQuery(
+                        } = useQuery(
                             triplit,
-                            sessionData &&
-                                triplit
-                                    .query("accounts")
-                                    .Where("userId", "=", userId)
+                            triplit
+                                .query("accounts")
+                                .Where("userId", "=", userId),
+                            {
+                                enabled: !!token
+                            }
                         )
 
                         const data = useMemo(() => {

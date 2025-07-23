@@ -6,8 +6,8 @@ export const triplit = new TriplitClient({
     schema,
     serverUrl: process.env.NEXT_PUBLIC_TRIPLIT_DB_URL,
     storage: {
-        name: "better-auth-starter",
-        type: isServer ? "memory" : "indexeddb"
+        // name: "better-auth-starter",
+        type: isServer ? "memory" : "memory"
     },
     autoConnect: false
 })
