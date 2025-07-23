@@ -7,13 +7,12 @@ import {
 } from "@daveyplate/better-auth-persistent"
 import { useTriplitAuth } from "@daveyplate/better-auth-triplit"
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
-import { useQuery } from "@triplit/react"
+import { useQuery, useQueryOne } from "@triplit/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
-
 import { MetaTheme } from "@/components/meta-theme"
 import { ThemeSync } from "@/components/theme-sync"
 import { useSession } from "@/hooks/use-session"
@@ -40,6 +39,10 @@ export function Providers({ children }: { children: ReactNode }) {
             <AuthUIProvider
                 authClient={authClient}
                 multiSession
+                apiKey
+                organization={{
+                    apiKey: true
+                }}
                 hooks={{
                     useSession,
                     useListDeviceSessions,
@@ -81,6 +84,62 @@ export function Providers({ children }: { children: ReactNode }) {
                                 provider: account.providerId
                             }))
                         }, [results])
+
+                        return { data, isPending, error }
+                    },
+                    useActiveOrganization() {
+                        const result = authClient.useActiveOrganization()
+                        const activeOrganization = result?.data
+
+                        const { result: organization } = useQueryOne(
+                            triplit,
+                            triplit
+                                .query("organizations")
+                                .Where("id", "=", activeOrganization?.id),
+                            { enabled: !!activeOrganization }
+                        )
+
+                        if (activeOrganization && organization) {
+                            activeOrganization.name = organization.name
+                            activeOrganization.slug = organization.slug
+                            activeOrganization.logo = organization.logo
+                            activeOrganization.metadata = organization.metadata
+                        }
+
+                        return result
+                    },
+                    useListApiKeys() {
+                        const { token } = useToken(triplit)
+
+                        const {
+                            results: data,
+                            fetching: isPending,
+                            error
+                        } = useQuery(triplit, triplit.query("apikeys"), {
+                            enabled: !!token
+                        })
+
+                        return { data, isPending, error }
+                    },
+                    useListOrganizations() {
+                        const { data: sessionData } = useSession()
+                        const { token } = useToken(triplit)
+
+                        const {
+                            results: data,
+                            fetching: isPending,
+                            error
+                        } = useQuery(
+                            triplit,
+                            triplit
+                                .query("organizations")
+                                .Where(
+                                    "members.userId",
+                                    "=",
+                                    sessionData?.user.id
+                                ),
+                            { enabled: !!token }
+                        )
 
                         return { data, isPending, error }
                     }

@@ -1,7 +1,7 @@
 import { triplitAdapter } from "@daveyplate/better-auth-triplit"
 import { betterAuth } from "better-auth"
-import { multiSession } from "better-auth/plugins"
-
+import { nextCookies } from "better-auth/next-js"
+import { apiKey, multiSession, organization } from "better-auth/plugins"
 import { httpClient } from "@/triplit/http-client"
 
 export const auth = betterAuth({
@@ -20,5 +20,10 @@ export const auth = betterAuth({
             }
         }
     },
-    plugins: [multiSession()]
+    plugins: [
+        apiKey({ enableMetadata: true }),
+        multiSession(),
+        nextCookies(),
+        organization()
+    ]
 })
