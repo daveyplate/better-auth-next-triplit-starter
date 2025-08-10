@@ -43,7 +43,13 @@ export function Header() {
                     Todos
                 </Link>
 
-                <OrganizationSwitcher size="sm" />
+                <Separator orientation="vertical" className="hidden md:block" />
+
+                <OrganizationSwitcher
+                    size="sm"
+                    variant="ghost"
+                    className="hidden md:flex"
+                />
             </div>
 
             <div className="flex items-center gap-2">
