@@ -1,41 +1,32 @@
-import { AuthCard } from "@daveyplate/better-auth-ui"
+import { AuthView } from "@daveyplate/better-auth-ui"
 import { authViewPaths } from "@daveyplate/better-auth-ui/server"
 import Link from "next/link"
 
 export function generateStaticParams() {
-    return Object.values(authViewPaths).map((pathname) => ({ pathname }))
+    return Object.values(authViewPaths).map((authView) => ({ authView }))
 }
 
 export default async function AuthPage({
     params
 }: {
-    params: Promise<{ pathname: string }>
+    params: Promise<{ authView: string }>
 }) {
-    const { pathname } = await params
+    const { authView } = await params
 
     // **EXAMPLE** SSR route protection for /auth/settings
     // NOTE: This opts /auth/settings out of static rendering
     // It already handles client side protection via useAuthenticate
-    // if (pathname === "settings") {
+    // if (authView === "settings") {
     //     const sessionData = await auth.api.getSession({ headers: await headers() })
     //     if (!sessionData) redirect("/auth/sign-in?redirectTo=/auth/settings")
     // }
 
     return (
         <main className="container flex grow flex-col items-center justify-center gap-4 self-center p-4 md:p-6">
-            <AuthCard
-                classNames={{
-                    settings: {
-                        sidebar: {
-                            base: "sticky top-20"
-                        }
-                    }
-                }}
-                pathname={pathname}
-            />
+            <AuthView pathname={authView} />
 
             {["sign-in", "sign-up", "magic-link", "forgot-password"].includes(
-                pathname
+                authView
             ) && (
                 <p className="text-muted-foreground text-xs">
                     Powered by{" "}

@@ -1,4 +1,8 @@
-import { GitHubIcon, UserButton } from "@daveyplate/better-auth-ui"
+import {
+    GitHubIcon,
+    OrganizationSwitcher,
+    UserButton
+} from "@daveyplate/better-auth-ui"
 import Link from "next/link"
 import { ModeToggle } from "./mode-toggle"
 import { Button } from "./ui/button"
@@ -38,6 +42,8 @@ export function Header() {
                 >
                     Todos
                 </Link>
+
+                <OrganizationSwitcher size="sm" />
             </div>
 
             <div className="flex items-center gap-2">
