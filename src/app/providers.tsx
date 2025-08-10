@@ -150,6 +150,80 @@ export function Providers({ children }: { children: ReactNode }) {
                         const isPending = !token || fetching
 
                         return { data, isPending, error }
+                    },
+                    useListMembers(params) {
+                        const { token } = useToken(triplit)
+
+                        const { results, fetching, error } = useQuery(
+                            triplit,
+                            triplit
+                                .query("members")
+                                .Include("user")
+                                .Where([
+                                    "organizationId",
+                                    "=",
+                                    params?.query?.organizationId
+                                ]),
+                            { enabled: !!token }
+                        )
+
+                        const isPending = !token || fetching
+
+                        const data = useMemo(
+                            () =>
+                                results
+                                    ? {
+                                          members: results,
+                                          total: results.length
+                                      }
+                                    : undefined,
+                            [results]
+                        )
+
+                        return { data, isPending, error }
+                    },
+                    useListInvitations(params) {
+                        const { token } = useToken(triplit)
+
+                        const {
+                            results: data,
+                            fetching,
+                            error
+                        } = useQuery(
+                            triplit,
+                            triplit
+                                .query("invitations")
+                                .Where([
+                                    "organizationId",
+                                    "=",
+                                    params?.query?.organizationId
+                                ]),
+                            { enabled: !!token }
+                        )
+
+                        const isPending = !token || fetching
+
+                        return { data, isPending, error }
+                    },
+                    useListUserInvitations() {
+                        const { data: sessionData } = useSession()
+                        const { token } = useToken(triplit)
+
+                        const {
+                            results: data,
+                            fetching,
+                            error
+                        } = useQuery(
+                            triplit,
+                            triplit
+                                .query("invitations")
+                                .Where("email", "=", sessionData?.user.email),
+                            { enabled: !!token }
+                        )
+
+                        const isPending = !token || fetching
+
+                        return { data, isPending, error }
                     }
                 }}
                 mutators={{

@@ -29,7 +29,16 @@ export const authSchema = S.Collections({
         permissions: {
             authenticated: {
                 read: {
-                    filter: [["id", "=", "$token.sub"]]
+                    filter: [
+                        or([
+                            ["id", "=", "$token.sub"],
+                            [
+                                "members.organization.members.userId",
+                                "=",
+                                "$token.sub"
+                            ]
+                        ])
+                    ]
                 },
                 update: {
                     filter: [["id", "=", "$token.sub"]]
