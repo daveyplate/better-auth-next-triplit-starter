@@ -9,7 +9,7 @@ import { useTriplitAuth } from "@daveyplate/better-auth-triplit"
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
 import { useQuery, useQueryOne } from "@triplit/react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
@@ -27,6 +27,8 @@ export function Providers({ children }: { children: ReactNode }) {
     useSubscribeDeviceSessions()
     const userId = sessionData?.user.id
 
+    const { slug } = useParams<{ slug?: string }>()
+
     const router = useRouter()
 
     return (
@@ -41,7 +43,9 @@ export function Providers({ children }: { children: ReactNode }) {
                 multiSession
                 apiKey
                 organization={{
-                    apiKey: true
+                    apiKey: true,
+                    pathMode: "slug",
+                    slug
                 }}
                 hooks={{
                     useSession,
@@ -49,7 +53,7 @@ export function Providers({ children }: { children: ReactNode }) {
                     useListSessions: () => {
                         const {
                             results: data,
-                            fetching: isPending,
+                            fetching,
                             error
                         } = useQuery(
                             triplit,
@@ -61,14 +65,12 @@ export function Providers({ children }: { children: ReactNode }) {
                             }
                         )
 
+                        const isPending = !token || fetching
+
                         return { data, isPending, error }
                     },
                     useListAccounts: () => {
-                        const {
-                            results,
-                            fetching: isPending,
-                            error
-                        } = useQuery(
+                        const { results, fetching, error } = useQuery(
                             triplit,
                             triplit
                                 .query("accounts")
@@ -77,6 +79,8 @@ export function Providers({ children }: { children: ReactNode }) {
                                 enabled: !!token
                             }
                         )
+
+                        const isPending = !token || fetching
 
                         const data = useMemo(() => {
                             return results?.map((account) => ({
@@ -113,11 +117,13 @@ export function Providers({ children }: { children: ReactNode }) {
 
                         const {
                             results: data,
-                            fetching: isPending,
+                            fetching,
                             error
                         } = useQuery(triplit, triplit.query("apikeys"), {
                             enabled: !!token
                         })
+
+                        const isPending = !token || fetching
 
                         return { data, isPending, error }
                     },
@@ -127,7 +133,7 @@ export function Providers({ children }: { children: ReactNode }) {
 
                         const {
                             results: data,
-                            fetching: isPending,
+                            fetching,
                             error
                         } = useQuery(
                             triplit,
@@ -140,6 +146,8 @@ export function Providers({ children }: { children: ReactNode }) {
                                 ),
                             { enabled: !!token }
                         )
+
+                        const isPending = !token || fetching
 
                         return { data, isPending, error }
                     }
