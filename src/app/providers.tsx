@@ -9,7 +9,7 @@ import { useTriplitAuth } from "@daveyplate/better-auth-triplit"
 import { AuthUIProvider } from "@daveyplate/better-auth-ui"
 import { useQuery, useQueryOne } from "@triplit/react"
 import Link from "next/link"
-import { useParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { ThemeProvider } from "next-themes"
 import { type ReactNode, useMemo } from "react"
 import { Toaster } from "sonner"
@@ -27,8 +27,6 @@ export function Providers({ children }: { children: ReactNode }) {
     useSubscribeDeviceSessions()
     const userId = sessionData?.user.id
 
-    const { slug } = useParams<{ slug?: string }>()
-
     const router = useRouter()
 
     return (
@@ -43,9 +41,7 @@ export function Providers({ children }: { children: ReactNode }) {
                 multiSession
                 apiKey
                 organization={{
-                    apiKey: true,
-                    pathMode: "slug",
-                    slug
+                    apiKey: true
                 }}
                 hooks={{
                     useSession,
