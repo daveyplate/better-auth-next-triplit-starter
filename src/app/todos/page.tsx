@@ -30,13 +30,15 @@ function useTodos() {
         enabled: !!token
     })
 
-    return { todos, error, fetching }
+    const isPending = !token || fetching
+
+    return { todos, error, isPending }
 }
 
 export default function TodosPage() {
     const { data: sessionData } = useSession()
 
-    const { todos, fetching } = useTodos()
+    const { todos, isPending } = useTodos()
     const [text, setText] = useState("")
 
     const handleSubmit = async (e: FormEvent) => {
@@ -69,7 +71,7 @@ export default function TodosPage() {
                 </Button>
             </form>
 
-            {fetching && (
+            {isPending && (
                 <div>
                     {[...Array(4)].map((_, index) => (
                         <TodoSkeleton key={index} />
@@ -77,9 +79,9 @@ export default function TodosPage() {
                 </div>
             )}
 
-            {!fetching && todos?.length === 0 && <p>No todos</p>}
+            {!isPending && todos?.length === 0 && <p>No todos</p>}
 
-            {!fetching && (
+            {!isPending && (
                 <div>
                     {todos?.map((todo) => (
                         <Todo key={todo.id} todo={todo} />
