@@ -1,8 +1,12 @@
-import { OrganizationView } from "@daveyplate/better-auth-ui"
-import { accountViewPaths } from "@daveyplate/better-auth-ui/server"
+import {
+    OrganizationView,
+    organizationViewPaths
+} from "@daveyplate/better-auth-ui"
+
+export const dynamicParams = false
 
 export function generateStaticParams() {
-    return Object.values(accountViewPaths).map((organizationView) => ({
+    return Object.values(organizationViewPaths).map((organizationView) => ({
         organizationView
     }))
 }

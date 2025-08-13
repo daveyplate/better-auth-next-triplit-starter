@@ -1,6 +1,7 @@
-import { AuthView } from "@daveyplate/better-auth-ui"
-import { authViewPaths } from "@daveyplate/better-auth-ui/server"
+import { AuthView, authViewPaths } from "@daveyplate/better-auth-ui"
 import Link from "next/link"
+
+export const dynamicParams = false
 
 export function generateStaticParams() {
     return Object.values(authViewPaths).map((authView) => ({ authView }))
