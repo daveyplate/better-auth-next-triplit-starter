@@ -1,7 +1,5 @@
-import {
-    OrganizationView,
-    organizationViewPaths
-} from "@daveyplate/better-auth-ui"
+import { OrganizationView } from "@daveyplate/better-auth-ui"
+import { organizationViewPaths } from "@daveyplate/better-auth-ui/server"
 
 export const dynamicParams = false
 
